@@ -84,7 +84,7 @@ export default function CustomerOverview() {
       </div>
 
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-8 overflow-hidden">
-        <h3 className="text-base sm:text-xl font-bold mb-4 sm:mb-6 text-white leading-tight">Recent API Activity</h3>
+        <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-5 text-white leading-tight">Recent API Activity</h3>
         <div className="overflow-x-auto -mx-5 px-5 sm:mx-0 sm:px-0">
           <table className="w-full text-left text-xs sm:text-sm whitespace-nowrap min-w-[500px]">
             <thead className="text-slate-400 uppercase text-[10px] sm:text-xs border-b border-slate-800">

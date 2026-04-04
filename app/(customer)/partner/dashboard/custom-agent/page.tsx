@@ -44,8 +44,8 @@ export default function CustomAgentRequestPage() {
         <div className="w-20 h-20 bg-green-500/20 text-green-400 rounded-full flex items-center justify-center mx-auto mb-6">
           <CheckCircle2 size={40} />
         </div>
-        <h2 className="text-3xl font-bold mb-4">Request Delivered!</h2>
-        <p className="text-slate-400 mb-8 max-w-sm mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-white">Request Delivered!</h2>
+        <p className="text-sm sm:text-base text-slate-400 mb-8 max-w-sm mx-auto">
           Our engineering team has received your custom agent requirements. We will review the details and get back to you within 24-48 hours.
         </p>
         <button 
@@ -62,7 +62,7 @@ export default function CustomAgentRequestPage() {
     <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
       <div>
         <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-white">Request Custom Agent</h2>
-        <p className="text-slate-400">Can't find what you need in our general templates? Describe the exact agent your client requires, and our engineering team will build it.</p>
+        <p className="text-sm sm:text-base text-slate-400">Can't find what you need in our general templates? Describe the exact agent your client requires, and our engineering team will build it.</p>
       </div>
 
       <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl p-8">

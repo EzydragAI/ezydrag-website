@@ -115,7 +115,7 @@ export default function PartnerOverview() {
       <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-8 overflow-hidden">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-8">
           <div>
-            <h3 className="text-xl font-bold mb-1">Individual Client Usage</h3>
+            <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2 text-white">Individual Client Usage</h3>
             <p className="text-sm sm:text-base text-slate-400">View daily message processing volume for specific sub-clients.</p>
           </div>
           <select 

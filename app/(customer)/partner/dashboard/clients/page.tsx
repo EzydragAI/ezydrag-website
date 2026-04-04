@@ -52,7 +52,7 @@ export default function ClientSeatsPage() {
       <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
         <div className="p-6 border-b border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-white">Client Distribution (Seats)</h3>
+            <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-white">Client Distribution (Seats)</h2>
             <p className="text-sm sm:text-base text-slate-400">Manage API access and monitor usage per client.</p>
           </div>
           <div className="flex items-center gap-4 w-full sm:w-auto">

@@ -21,14 +21,14 @@ export default function PartnerLogin() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-950">
       <Navbar />
-      <div className="flex-grow flex items-center justify-center p-6 mt-20">
+      <div className="grow flex items-center justify-center p-4 sm:p-6 mt-20">
         <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-0 bg-slate-900 border border-slate-800 rounded-[40px] overflow-hidden shadow-2xl">
           {/* Left Side - Welcome */}
-          <div className="hidden md:flex flex-col p-12 bg-gradient-to-br from-purple-900/40 to-blue-900/40 border-r border-slate-800 relative overflow-hidden">
+          <div className="hidden md:flex flex-col p-12 bg-linear-to-br from-purple-900/40 to-blue-900/40 border-r border-slate-800 relative overflow-hidden">
             <div className="absolute top-0 right-0 p-8 opacity-10 blur-sm pointer-events-none">
               <Network size={200} />
             </div>
-            <div className="relative z-10 flex-grow pt-8">
+            <div className="relative z-10 grow pt-8">
               <div className="w-16 h-16 bg-purple-500/20 rounded-2xl flex items-center justify-center mb-8">
                 <Network className="text-purple-400" size={32} />
               </div>
@@ -50,9 +50,9 @@ export default function PartnerLogin() {
           </div>
 
           {/* Right Side - Form */}
-          <div className="p-10 sm:p-14 md:p-16 flex flex-col justify-center">
+          <div className="p-6 sm:p-10 md:p-16 flex flex-col justify-center">
             <div className="mb-10 text-center md:text-left">
-              <h3 className="text-3xl font-bold mb-3">Sign in</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold mb-2 sm:mb-3">Sign in</h3>
               <p className="text-slate-400">Access your partner portal</p>
             </div>
 
@@ -66,7 +66,7 @@ export default function PartnerLogin() {
                     type="email" 
                     placeholder="partner@agency.com"
                     defaultValue="partner@agency.com"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 sm:py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
                   />
                 </div>
               </div>
@@ -83,14 +83,14 @@ export default function PartnerLogin() {
                     type="password" 
                     placeholder="••••••••"
                     defaultValue="password123"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                    className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 sm:py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
                   />
                 </div>
               </div>
 
               <button 
                 disabled={loading}
-                className="w-full py-4 mt-4 bg-purple-600 hover:bg-purple-500 disabled:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all shadow-xl shadow-purple-600/20 flex items-center justify-center gap-2 group"
+                className="w-full py-3 sm:py-4 mt-4 bg-purple-600 hover:bg-purple-500 disabled:bg-slate-700 text-white rounded-xl font-bold text-base sm:text-lg transition-all shadow-xl shadow-purple-600/20 flex items-center justify-center gap-2 group"
               >
                 {loading ? 'Authenticating...' : (
                   <>Sign In <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /></>

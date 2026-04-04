@@ -19,15 +19,15 @@ export default function PartnerRegister() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-950">
       <Navbar />
-      <div className="flex-grow flex items-center justify-center p-6 mt-20 my-10">
+      <div className="grow flex items-center justify-center p-4 sm:p-6 mt-20 my-10">
         <div className="w-full max-w-2xl bg-slate-900 border border-slate-800 rounded-[40px] overflow-hidden shadow-2xl">
           
-          <div className="p-10 sm:p-14">
+          <div className="p-6 sm:p-10 md:p-14">
             <div className="mb-10 text-center">
               <div className="mx-auto w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6">
                 <Sparkles className="text-purple-400" size={28} />
               </div>
-              <h2 className="text-3xl font-bold mb-3">Become a Distribution Partner</h2>
+              <h2 className="text-2xl sm:text-3xl font-bold mb-3">Become a Distribution Partner</h2>
               <p className="text-slate-400">Start distributing custom AI agents to your clients today.</p>
             </div>
 
@@ -41,7 +41,7 @@ export default function PartnerRegister() {
                       required
                       type="text" 
                       placeholder="Jane Doe"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                      className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 sm:py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
                     />
                   </div>
                 </div>
@@ -53,7 +53,7 @@ export default function PartnerRegister() {
                       required
                       type="text" 
                       placeholder="Acme Digital"
-                      className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                      className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 sm:py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
                     />
                   </div>
                 </div>
@@ -87,7 +87,7 @@ export default function PartnerRegister() {
 
               <button 
                 disabled={loading}
-                className="w-full py-4 mt-6 bg-purple-600 hover:bg-purple-500 disabled:bg-slate-700 text-white rounded-xl font-bold text-lg transition-all shadow-xl shadow-purple-600/20 flex items-center justify-center gap-2 group"
+                className="w-full py-3 sm:py-4 mt-6 bg-purple-600 hover:bg-purple-500 disabled:bg-slate-700 text-white rounded-xl font-bold text-base sm:text-lg transition-all shadow-xl shadow-purple-600/20 flex items-center justify-center gap-2 group"
               >
                 {loading ? 'Submitting Application...' : (
                   <>Create Partner Account <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /></>

@@ -17,7 +17,8 @@ import {
   ArrowRight,
   Mail,
   User,
-  MessageSquare
+  MessageSquare,
+  Network
 } from 'lucide-react';
 import { TEAM, SERVICES, PREBUILT_AGENTS } from '@/lib/constants';
 import { Navbar, Footer } from '@/components/Layout';
@@ -198,12 +199,12 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Hosting Options Section */}
+        {/* Deployment & Partnerships Section */}
         <section id="hosting" className="py-24">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">Flexible Deployment</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">Choose the hosting model that fits your technical requirements and budget.</p>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4">Deployment & Partnerships</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">Choose managed hosting for hands-off deployment or partner with us to distribute our agents.</p>
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
@@ -232,28 +233,28 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Self-Hosting */}
+              {/* Partner Program */}
               <div
                 className="p-10 rounded-[40px] bg-slate-900 border border-slate-800 relative overflow-hidden group"
               >
                 <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                  <Server size={120} />
+                  <Network size={120} />
                 </div>
                 <div className="relative z-10">
                   <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-8">
-                    <Server className="text-purple-400" size={32} />
+                    <Network className="text-purple-400" size={32} />
                   </div>
-                  <h3 className="text-3xl font-bold mb-4">Self-Hosting</h3>
-                  <p className="text-slate-400 mb-8">Full control over your data and infrastructure. We provide the code and documentation for your team to deploy.</p>
+                  <h3 className="text-3xl font-bold mb-4">Partner Distribution</h3>
+                  <p className="text-slate-400 mb-8">Distribute our agents to your own clients. You manage the relationships while we maintain centralized control over usage and user limits.</p>
                   <ul className="space-y-4 mb-10">
-                    {['Source Code Access', 'Setup Documentation', 'Internal Infrastructure', 'One-time Payment'].map(item => (
+                    {['Distribute to Sub-Clients', 'Centralized License Control', 'Custom Usage Limits', 'Revenue Sharing Model'].map(item => (
                       <li key={item} className="flex items-center gap-3 text-slate-300">
                         <CheckCircle2 size={20} className="text-purple-500" />
                         {item}
                       </li>
                     ))}
                   </ul>
-                  <div className="text-sm font-bold text-purple-400 uppercase tracking-widest">One-Time Licensing Fee</div>
+                  <div className="text-sm font-bold text-purple-400 uppercase tracking-widest">Partnership Program</div>
                 </div>
               </div>
             </div>

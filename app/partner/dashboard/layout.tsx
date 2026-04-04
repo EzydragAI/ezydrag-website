@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
@@ -10,11 +10,14 @@ import {
   BarChart, 
   LogOut,
   Bell,
-  Bot
+  Bot,
+  Menu,
+  X
 } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const links = [
     { href: '/partner/dashboard', label: 'Overview', icon: BarChart },
@@ -25,17 +28,34 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   ];
 
   return (
-    <div className="min-h-screen flex bg-slate-950 text-slate-50 font-sans">
+    <div className="min-h-screen flex bg-slate-950 text-slate-50 font-sans overflow-hidden">
+      
+      {/* Mobile Sidebar Overlay */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-950/80 z-40 lg:hidden backdrop-blur-sm" 
+          onClick={() => setIsMobileMenuOpen(false)} 
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-64 border-r border-slate-800 bg-slate-900/50 hidden md:flex flex-col">
-        <div className="p-6 border-b border-slate-800">
-          <div className="flex items-center gap-3 mb-1">
-            <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center font-bold text-white">
-              A
+      <aside className={`fixed lg:static inset-y-0 left-0 z-50 w-64 border-r border-slate-800 bg-slate-950 lg:bg-slate-900/50 flex flex-col transform transition-transform duration-300 lg:translate-x-0 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+        <div className="p-6 border-b border-slate-800 flex items-center justify-between">
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center font-bold text-white">
+                A
+              </div>
+              <h1 className="font-bold text-lg">Acme Digital</h1>
             </div>
-            <h1 className="font-bold text-lg">Acme Digital</h1>
+            <p className="text-xs text-slate-400 pl-11">Partner Portal</p>
           </div>
-          <p className="text-xs text-slate-400 pl-11">Partner Portal</p>
+          <button 
+            className="lg:hidden text-slate-400 hover:text-white"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <X size={20} />
+          </button>
         </div>
         
         <nav className="flex-1 p-4 space-y-2">
@@ -46,6 +66,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <Link
                 key={link.href}
                 href={link.href} 
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
                   isActive 
                   ? 'bg-purple-600/10 text-purple-400 border border-purple-500/20' 
@@ -66,10 +87,18 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col h-screen overflow-hidden">
+      <main className="flex-1 flex flex-col h-screen overflow-hidden relative z-0">
         {/* Topbar */}
-        <header className="h-20 border-b border-slate-800 bg-slate-900/30 flex items-center justify-between px-8">
-          <h2 className="text-2xl font-bold">Dashboard</h2>
+        <header className="h-20 border-b border-slate-800 bg-slate-900/30 flex items-center justify-between px-4 sm:px-8">
+          <div className="flex items-center gap-4">
+            <button 
+              className="lg:hidden text-slate-400 hover:text-white p-1"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu size={24} />
+            </button>
+            <h2 className="text-xl sm:text-2xl font-bold truncate hidden sm:block">Dashboard</h2>
+          </div>
           <div className="flex items-center gap-6">
             <button className="relative text-slate-400 hover:text-white transition-colors">
               <Bell size={20} />
@@ -86,7 +115,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </header>
 
         {/* Scrollable Content (Page injected here) */}
-        <div className="flex-1 overflow-y-auto p-8">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-8 pb-20">
           {children}
         </div>
       </main>

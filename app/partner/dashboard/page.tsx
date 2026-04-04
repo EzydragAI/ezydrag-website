@@ -46,21 +46,21 @@ export default function PartnerOverview() {
   return (
     <>
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
         {/* Credits Card */}
         <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 relative overflow-hidden group">
           <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
             <Coins size={100} />
           </div>
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
+            <div className="w-12 h-12 shrink-0 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
               <Coins size={24} />
             </div>
             <div>
-              <h3 className="text-slate-400 font-medium">Available Credits</h3>
+              <h3 className="text-sm sm:text-base text-slate-400 font-medium">Available Credits</h3>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold">45,620</span>
-                <span className="text-sm text-green-400 flex items-center"><TrendingUp size={14} className="mr-1"/> +12K</span>
+                <span className="text-2xl sm:text-3xl font-bold">45,620</span>
+                <span className="text-xs sm:text-sm text-green-400 flex items-center"><TrendingUp size={14} className="mr-1"/> +12K</span>
               </div>
             </div>
           </div>
@@ -76,14 +76,14 @@ export default function PartnerOverview() {
             <Users size={100} />
           </div>
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
+            <div className="w-12 h-12 shrink-0 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
               <Users size={24} />
             </div>
             <div>
-              <h3 className="text-slate-400 font-medium">Active Sub-clients</h3>
+              <h3 className="text-sm sm:text-base text-slate-400 font-medium">Active Sub-clients</h3>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold">12</span>
-                <span className="text-sm text-slate-500">/ 50 limit</span>
+                <span className="text-2xl sm:text-3xl font-bold">12</span>
+                <span className="text-xs sm:text-sm text-slate-500">/ 50 limit</span>
               </div>
             </div>
           </div>
@@ -93,30 +93,30 @@ export default function PartnerOverview() {
         </div>
 
         {/* Active Agents Card */}
-        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 relative overflow-hidden group">
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 relative overflow-hidden group sm:col-span-2 lg:col-span-1">
           <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
             <Zap size={100} />
           </div>
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400">
+            <div className="w-12 h-12 shrink-0 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400">
               <Zap size={24} />
             </div>
             <div>
-              <h3 className="text-slate-400 font-medium">Messages Processed</h3>
+              <h3 className="text-sm sm:text-base text-slate-400 font-medium">Messages Processed</h3>
               <div className="flex items-baseline gap-2">
-                <span className="text-3xl font-bold">114.2k</span>
+                <span className="text-2xl sm:text-3xl font-bold">114.2k</span>
               </div>
             </div>
           </div>
-           <div className="text-sm text-slate-400 mt-5">Across all client seats this month</div>
+           <div className="text-xs sm:text-sm text-slate-400 mt-5">Across all client seats this month</div>
         </div>
       </div>
 
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+      <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-8 overflow-hidden">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4 sm:mb-8">
           <div>
             <h3 className="text-xl font-bold mb-1">Individual Client Usage</h3>
-            <p className="text-slate-400">View daily message processing volume for specific sub-clients.</p>
+            <p className="text-sm sm:text-base text-slate-400">View daily message processing volume for specific sub-clients.</p>
           </div>
           <select 
             value={selectedClient} 
@@ -128,21 +128,21 @@ export default function PartnerOverview() {
             ))}
           </select>
         </div>
-        <div className="h-96 mt-6">
+        <div className="h-64 sm:h-96 mt-6 w-full -ml-4 sm:ml-0">
           <ResponsiveContainer width="100%" height="100%">
             <RechartsBarChart
               data={INDIVIDUAL_USAGE_DATA[selectedClient as keyof typeof INDIVIDUAL_USAGE_DATA]}
-              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              margin={{ top: 10, right: 10, left: -15, bottom: 0 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-              <XAxis dataKey="day" stroke="#94a3b8" tick={{fill: '#94a3b8'}} axisLine={false} tickLine={false} />
-              <YAxis stroke="#94a3b8" tick={{fill: '#94a3b8'}} axisLine={false} tickLine={false} />
+              <XAxis dataKey="day" stroke="#94a3b8" tick={{fill: '#94a3b8', fontSize: 12}} axisLine={false} tickLine={false} />
+              <YAxis stroke="#94a3b8" tick={{fill: '#94a3b8', fontSize: 12}} axisLine={false} tickLine={false} />
               <Tooltip 
                 cursor={{fill: '#1e293b'}} 
-                contentStyle={{backgroundColor: '#0f172a', borderColor: '#334155', color: '#f8fafc', borderRadius: '0.75rem'}}
+                contentStyle={{backgroundColor: '#0f172a', borderColor: '#334155', color: '#f8fafc', borderRadius: '0.75rem', fontSize: '14px'}}
                 itemStyle={{color: '#e2e8f0'}}
               />
-              <Bar dataKey="usage" name="Messages Processed" fill="#a855f7" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="usage" name="Messages Processed" fill="#a855f7" radius={[4, 4, 0, 0]} maxBarSize={50} />
             </RechartsBarChart>
           </ResponsiveContainer>
         </div>

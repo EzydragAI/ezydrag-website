@@ -108,21 +108,21 @@ export default function ClientSeatsPage() {
         )}
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead className="bg-slate-800/50 text-slate-400 uppercase tracking-wider text-xs">
+          <table className="w-full text-left text-xs sm:text-sm">
+            <thead className="bg-slate-800/50 text-slate-400 uppercase tracking-wider text-[10px] sm:text-xs">
               <tr>
-                <th className="px-6 py-4 font-bold">Client / Company</th>
-                <th className="px-6 py-4 font-bold">Assigned Agent</th>
-                <th className="px-6 py-4 font-bold">License Key</th>
-                <th className="px-6 py-4 font-bold">Credit Usage</th>
-                <th className="px-6 py-4 font-bold">Status</th>
-                <th className="px-6 py-4 font-bold text-right">Actions</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold">Client / Company</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold">Assigned Agent</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold">License Key</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold">Credit Usage</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold">Status</th>
+                <th className="px-4 sm:px-6 py-3 sm:py-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800/50">
               {clients.map(client => (
                 <tr key={client.id} className="hover:bg-slate-800/30 transition-colors">
-                  <td className="px-6 py-4">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center">
                         <Building size={14} className="text-slate-400" />
@@ -130,8 +130,8 @@ export default function ClientSeatsPage() {
                       <span className="font-bold">{client.name}</span>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-slate-300">{client.agent}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 text-slate-300">{client.agent}</td>
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
                     <div className="flex items-center gap-2">
                       <Key size={14} className={client.apiKey.startsWith('sk-') ? "text-purple-500" : "text-slate-500"} />
                       <span className="font-mono text-slate-300 text-xs">
@@ -144,9 +144,9 @@ export default function ClientSeatsPage() {
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-col gap-1">
-                      <div className="flex justify-between text-xs">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
+                    <div className="flex flex-col gap-1 min-w-[120px]">
+                      <div className="flex justify-between gap-2 text-xs whitespace-nowrap">
                         <span className="text-slate-400">{client.used.toLocaleString()}</span>
                         <span className="text-slate-500">{client.limit.toLocaleString()} max</span>
                       </div>
@@ -158,7 +158,7 @@ export default function ClientSeatsPage() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4">
                     <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${
                       client.status === 'Active' ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 
                       client.status === 'Warning' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20' : 
@@ -167,7 +167,7 @@ export default function ClientSeatsPage() {
                       {client.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-right">
+                  <td className="px-4 sm:px-6 py-3 sm:py-4 text-right">
                     <div className="flex justify-end gap-2">
                       {client.status !== 'Disabled' && client.status !== 'Paused' && (
                         <button 

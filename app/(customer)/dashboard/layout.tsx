@@ -1,30 +1,31 @@
 "use client";
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
-  Users, 
-  Coins, 
+  Key, 
+  CreditCard, 
   Settings, 
-  BarChart, 
+  Activity, 
   LogOut,
   Bell,
-  Bot,
   Menu,
-  X
+  X,
+  Package
 } from 'lucide-react';
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function CustomerDashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Note: App running under (customer) resolves relative to root.
   const links = [
-    { href: '/partner/dashboard', label: 'Overview', icon: BarChart },
-    { href: '/partner/dashboard/clients', label: 'Client Seats', icon: Users },
-    { href: '/partner/dashboard/custom-agent', label: 'Custom Agent', icon: Bot },
-    { href: '/partner/dashboard/billing', label: 'Billing & Credits', icon: Coins },
-    { href: '/partner/dashboard/settings', label: 'Settings', icon: Settings },
+    { href: '/dashboard', label: 'Usage & Overview', icon: Activity },
+    { href: '/dashboard/api-keys', label: 'API Keys', icon: Key },
+    { href: '/dashboard/billing', label: 'Billing', icon: CreditCard },
+    { href: '/dashboard/pricing', label: 'Pricing', icon: Package },
+    { href: '/dashboard/settings', label: 'Settings', icon: Settings },
   ];
 
   return (
@@ -43,15 +44,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="p-6 border-b border-slate-800 flex items-center justify-between">
           <div>
             <div className="flex items-center gap-3 mb-1">
-              <div className="w-8 h-8 rounded-lg bg-purple-600 flex items-center justify-center font-bold text-white">
-                A
+              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white">
+                N
               </div>
-              <h1 className="font-bold text-lg">Acme Digital</h1>
+              <h1 className="font-bold text-lg">Nexus AI</h1>
             </div>
-            <p className="text-xs text-slate-400 pl-11">Partner Portal</p>
+            <p className="text-xs text-slate-400 pl-11">Customer Portal</p>
           </div>
           <button 
-            className="lg:hidden text-slate-400 hover:text-white"
+            className="lg:hidden text-slate-400 hover:text-white p-1"
             onClick={() => setIsMobileMenuOpen(false)}
           >
             <X size={20} />
@@ -69,7 +70,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors ${
                   isActive 
-                  ? 'bg-purple-600/10 text-purple-400 border border-purple-500/20' 
+                  ? 'bg-blue-600/10 text-blue-400 border border-blue-500/20' 
                   : 'text-slate-400 hover:bg-slate-800 hover:text-slate-300'
                 }`}
               >
@@ -80,7 +81,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </nav>
         
         <div className="p-4 border-t border-slate-800">
-          <Link href="/partner/login" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-400 font-medium transition-colors">
+          <Link href="/login" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-800 text-slate-400 font-medium transition-colors">
             <LogOut size={20} /> Sign Out
           </Link>
         </div>
@@ -89,7 +90,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {/* Main Content */}
       <main className="flex-1 flex flex-col h-screen overflow-hidden relative z-0">
         {/* Topbar */}
-        <header className="h-20 border-b border-slate-800 bg-slate-900/30 flex items-center justify-between px-4 sm:px-8">
+        <header className="h-20 border-b border-slate-800 bg-slate-900/30 flex items-center justify-between px-4 sm:px-8 shrink-0">
           <div className="flex items-center gap-4">
             <button 
               className="lg:hidden text-slate-400 hover:text-white p-1"
@@ -97,24 +98,25 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               <Menu size={24} />
             </button>
-            <h2 className="text-xl sm:text-2xl font-bold truncate hidden sm:block">Dashboard</h2>
+            <h2 className="text-xl sm:text-2xl font-bold truncate hidden sm:block">Customer Portal</h2>
           </div>
           <div className="flex items-center gap-6">
             <button className="relative text-slate-400 hover:text-white transition-colors">
               <Bell size={20} />
-              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-purple-500 rounded-full border-2 border-slate-900"></div>
             </button>
             <div className="flex items-center gap-3 pl-6 border-l border-slate-800">
               <div className="text-right hidden sm:block">
-                <div className="text-sm font-bold">Jane Doe</div>
-                <div className="text-xs text-slate-400">Admin</div>
+                <div className="text-sm font-bold">Jane Business</div>
+                <div className="text-xs text-slate-400">Pro Plan</div>
               </div>
-              <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700"></div>
+              <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-slate-400 text-sm">
+                JB
+              </div>
             </div>
           </div>
         </header>
 
-        {/* Scrollable Content (Page injected here) */}
+        {/* Scrollable Content */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-8 pb-20">
           {children}
         </div>

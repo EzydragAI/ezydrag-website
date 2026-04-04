@@ -44,7 +44,7 @@ export default function PartnerOverview() {
   const [selectedClient, setSelectedClient] = useState(CLIENTS[0]);
 
   return (
-    <>
+    <div className="max-w-6xl mx-auto">
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
         {/* Credits Card */}
@@ -147,6 +147,6 @@ export default function PartnerOverview() {
           </ResponsiveContainer>
         </div>
       </div>
-    </>
+    </div>
   );
 }

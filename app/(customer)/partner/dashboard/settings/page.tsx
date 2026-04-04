@@ -14,9 +14,9 @@ export default function SettingsPage() {
   const [isPremium, setIsPremium] = useState(false);
 
   return (
-    <div className="max-w-4xl max-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Agency Settings</h2>
+        <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-white">Agency Settings</h2>
         <p className="text-slate-400">Configure your partner profile and white-label options.</p>
       </div>
 
@@ -33,7 +33,7 @@ export default function SettingsPage() {
                 <input 
                   type="text" 
                   defaultValue="Acme Digital"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
                 />
               </div>
             </div>
@@ -44,7 +44,7 @@ export default function SettingsPage() {
                 <input 
                   type="email" 
                   defaultValue="hello@acmedigital.com"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
                 />
               </div>
             </div>
@@ -56,7 +56,7 @@ export default function SettingsPage() {
               <input 
                 type="url" 
                 defaultValue="https://acmedigital.com"
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
               />
             </div>
           </div>

@@ -59,9 +59,9 @@ export default function CustomAgentRequestPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="max-w-6xl mx-auto space-y-6 sm:space-y-8">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Request Custom Agent</h2>
+        <h2 className="text-xl sm:text-2xl font-bold mb-1 sm:mb-2 text-white">Request Custom Agent</h2>
         <p className="text-slate-400">Can't find what you need in our general templates? Describe the exact agent your client requires, and our engineering team will build it.</p>
       </div>
 
@@ -77,7 +77,7 @@ export default function CustomAgentRequestPage() {
                 type="text" 
                 required
                 placeholder="e.g. Legal Document Analyzer"
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-3 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors"
               />
             </div>
           </div>
@@ -90,7 +90,7 @@ export default function CustomAgentRequestPage() {
                 required
                 rows={4}
                 placeholder="Describe what the agent needs to achieve and what its primary role will be..."
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 px-4 focus:outline-none focus:border-purple-500 transition-colors resize-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-4 px-4 focus:outline-none focus:border-purple-500 transition-colors resize-none"
               ></textarea>
             </div>
             <p className="text-xs text-slate-500 mt-2">Provide as much context as possible about the end-client's business.</p>
@@ -105,7 +105,7 @@ export default function CustomAgentRequestPage() {
                 required
                 rows={3}
                 placeholder="- Needs to connect to specific CRM&#10;- Requires custom prompt logic&#10;- Needs to output PDF reports"
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors resize-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-purple-500 transition-colors resize-none"
               ></textarea>
             </div>
           </div>

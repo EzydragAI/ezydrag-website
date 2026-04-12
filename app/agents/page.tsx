@@ -8,13 +8,9 @@ import { AgentCard } from '@/components/AgentCard';
 
 export default function AgentsShowcasePage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState<'all' | 'subscription' | 'one-time'>('all');
-
   const filteredAgents = PREBUILT_AGENTS.filter(agent => {
-    const matchesSearch = agent.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                         agent.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesFilter = filter === 'all' || agent.type === filter;
-    return matchesSearch && matchesFilter;
+    return agent.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+           agent.description.toLowerCase().includes(searchQuery.toLowerCase());
   });
 
   return (
@@ -38,17 +34,6 @@ export default function AgentsShowcasePage() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-slate-900 border border-slate-800 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:border-blue-500 transition-colors"
               />
-            </div>
-            <div className="flex gap-2">
-              {(['all', 'subscription', 'one-time'] as const).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setFilter(f)}
-                  className={`px-6 py-4 rounded-2xl font-bold capitalize transition-all border ${filter === f ? 'bg-blue-600 border-blue-600 text-white' : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'}`}
-                >
-                  {f.replace('-', ' ')}
-                </button>
-              ))}
             </div>
           </div>
 

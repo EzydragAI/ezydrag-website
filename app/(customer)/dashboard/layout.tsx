@@ -47,7 +47,7 @@ export default function CustomerDashboardLayout({ children }: { children: React.
               <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white">
                 N
               </div>
-              <h1 className="font-bold text-lg">Nexus AI</h1>
+              <h1 className="font-bold text-lg">Ezydrag AI</h1>
             </div>
             <p className="text-xs text-slate-400 pl-11">Customer Portal</p>
           </div>

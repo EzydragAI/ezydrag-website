@@ -3,17 +3,17 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { 
-  Zap, 
-  Bot, 
-  BarChart, 
-  Github, 
-  Linkedin, 
-  Instagram, 
-  ChevronRight, 
-  Server, 
-  Cloud, 
-  CheckCircle2, 
+import {
+  Zap,
+  Bot,
+  BarChart,
+  Github,
+  Linkedin,
+  Instagram,
+  ChevronRight,
+  Server,
+  Cloud,
+  CheckCircle2,
   ArrowRight,
   Mail,
   User,
@@ -36,7 +36,7 @@ export default function HomePage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus({ loading: true, success: false, message: null });
-    
+
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
@@ -58,10 +58,10 @@ export default function HomePage() {
         throw new Error(result.message);
       }
     } catch (error) {
-      setFormStatus({ 
-        loading: false, 
-        success: false, 
-        message: error instanceof Error ? error.message : 'Something went wrong' 
+      setFormStatus({
+        loading: false,
+        success: false,
+        message: error instanceof Error ? error.message : 'Something went wrong'
       });
       setShowMessage(true)
       setTimeout(() => {
@@ -141,9 +141,7 @@ export default function HomePage() {
                 <h2 className="text-3xl md:text-5xl font-bold mb-4">Featured AI Agents</h2>
                 <p className="text-slate-400 max-w-xl">Our most popular ready-to-deploy solutions.</p>
               </div>
-              <Link href="/agents" className="inline-flex items-center gap-2 text-blue-400 font-bold hover:text-blue-300 transition-colors">
-                View All Agents <ArrowRight size={20} />
-              </Link>
+
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -261,48 +259,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Team Section */}
-        <section id="team" className="py-24 bg-slate-900/50">
-          <div className="max-w-7xl mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-5xl font-bold mb-4">Meet the Experts</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto">A specialized team dedicated to pushing the boundaries of AI automation.</p>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-              {TEAM.map((member, idx) => (
-                <div
-                  key={member.name}
-                  className="text-center group"
-                >
-                  <div className="relative mb-8 inline-block">
-                    <div className="absolute inset-0 bg-blue-500 rounded-3xl rotate-6 group-hover:rotate-12 transition-transform" />
-                    <img 
-                      src={member.image} 
-                      alt={member.name} 
-                      className="relative w-64 h-64 object-cover rounded-3xl shadow-xl grayscale group-hover:grayscale-0 transition-all duration-500"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                  <h3 className="text-2xl font-bold mb-1">{member.name}</h3>
-                  <p className="text-blue-400 font-medium mb-4">{member.role}</p>
-                  <p className="text-slate-400 mb-6 px-4">{member.description}</p>
-                  <div className="flex justify-center gap-4">
-                    <Link href={member.socials.linkedin} className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-blue-600 hover:text-white transition-all">
-                      <Linkedin size={18} />
-                    </Link>
-                    <Link href={member.socials.github} className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-slate-700 hover:text-white transition-all">
-                      <Github size={18} />
-                    </Link>
-                    <Link href={member.socials.instagram} className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 hover:bg-pink-600 hover:text-white transition-all">
-                      <Instagram size={18} />
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
 
         {/* Contact Section */}
         <section id="contact" className="py-24">
@@ -321,7 +278,7 @@ export default function HomePage() {
                       </div>
                       <div>
                         <div className="text-blue-200 text-sm font-bold uppercase tracking-wider">Email Us</div>
-                        <div className="text-xl font-bold">hello@nexusai.com</div>
+                        <div className="text-xl font-bold">infoezydrag@gmail.com</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-6">
@@ -341,10 +298,10 @@ export default function HomePage() {
                       <label className="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Full Name</label>
                       <div className="relative">
                         <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                        <input 
+                        <input
                           required
                           name="name"
-                          type="text" 
+                          type="text"
                           placeholder="John Doe"
                           className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-blue-500 transition-colors"
                         />
@@ -354,10 +311,10 @@ export default function HomePage() {
                       <label className="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Email Address</label>
                       <div className="relative">
                         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
-                        <input 
+                        <input
                           required
                           name="email"
-                          type="email" 
+                          type="email"
                           placeholder="john@company.com"
                           className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 pl-12 pr-4 focus:outline-none focus:border-blue-500 transition-colors"
                         />
@@ -365,7 +322,7 @@ export default function HomePage() {
                     </div>
                     <div>
                       <label className="block text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Requirements</label>
-                      <textarea 
+                      <textarea
                         required
                         name="message"
                         rows={4}
@@ -373,15 +330,15 @@ export default function HomePage() {
                         className="w-full bg-slate-800 border border-slate-700 rounded-xl py-4 px-4 focus:outline-none focus:border-blue-500 transition-colors resize-none"
                       />
                     </div>
-                    <button 
+                    <button
                       disabled={formStatus.loading}
                       className="w-full py-5 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-700 text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-blue-600/20"
                     >
                       {formStatus.loading ? 'Sending...' : 'Send Message'}
                     </button>
-                    
+
                     {formStatus.message && showMessage && (
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className={`p-4 rounded-xl text-center font-medium ${formStatus.success ? 'bg-green-500/10 text-green-400 border border-green-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}

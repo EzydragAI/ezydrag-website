@@ -18,7 +18,7 @@ export default async function saveToGoogleSheets({name, email, message}: Contact
 
       await sheets.spreadsheets.values.append({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: 'NexusAI',
+        range: 'EzydragAI',
         valueInputOption: 'USER_ENTERED',
         requestBody: {
           values: [

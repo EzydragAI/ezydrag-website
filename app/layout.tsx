@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nexus AI Automation",
+  title: "Ezydrag AI Automation",
   description: "Professional AI automation solutions and custom AI agents for modern businesses.",
 };
 

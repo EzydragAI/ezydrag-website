@@ -16,7 +16,7 @@ export interface AIAgent {
   description: string;
   features: string[];
   pricing: string;
-  type: 'subscription' | 'one-time';
+  comingSoon?: boolean;
 }
 
 export interface Service {

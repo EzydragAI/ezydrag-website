@@ -110,7 +110,7 @@ export default function AgencySettingsPage() {
                 Verify CNAME
               </button>
             </div>
-            <p className="text-xs text-slate-500 mt-3 leading-relaxed max-w-2xl">Point your CNAME record to <strong className="text-slate-300">portal.nexusai.com</strong>. While the domain is customized, your clients will still see a tiny "Powered by Nexus AI" badge in the footer on the Basic plan.</p>
+            <p className="text-xs text-slate-500 mt-3 leading-relaxed max-w-2xl">Point your CNAME record to <strong className="text-slate-300">portal.ezydrag.ai</strong>. While the domain is customized, your clients will still see a tiny "Powered by Ezydrag AI" badge in the footer on the Basic plan.</p>
           </div>
           
           <div className="pt-8 pb-8 sm:pb-12 border-t border-slate-800 relative xl:-mx-8 xl:px-8 -mx-5 px-5">
@@ -120,7 +120,7 @@ export default function AgencySettingsPage() {
                   <Lock className="text-amber-400" size={28} />
                 </div>
                 <h4 className="text-xl font-bold text-white mb-2">Premium White-Label Required</h4>
-                <p className="text-slate-400 text-sm mb-6 max-w-md text-center leading-relaxed">Upgrade to remove the "Powered by Nexus AI" badge entirely and unlock full color palettes and custom dashboard logos.</p>
+                <p className="text-slate-400 text-sm mb-6 max-w-md text-center leading-relaxed">Upgrade to remove the "Powered by Ezydrag AI" badge entirely and unlock full color palettes and custom dashboard logos.</p>
                 <button 
                   type="button"
                   onClick={() => setIsPremium(true)}

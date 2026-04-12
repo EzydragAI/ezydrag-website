@@ -20,8 +20,8 @@ export async function POST(req: Request) {
     });
 
     const info = await transporter.sendMail({
-      from: '"Partner Portal" <portal@nexusai.com>',
-      to: "engineering@nexusai.com", // Your VPS Mail
+      from: '"Partner Portal" <portal@ezydrag.ai>',
+      to: "engineering@ezydrag.ai", // Your VPS Mail
       subject: `New Custom Agent Request: ${body.agentName}`,
       text: `Agent Name: ${body.agentName}\nDescription: ${body.description}\nFeatures: ${body.features}`,
     });

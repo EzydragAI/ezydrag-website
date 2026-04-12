@@ -1,6 +1,6 @@
 # White-Label Branding Strategy & Implementation Plan
 
-White-label branding is a business model where you provide the core technology, but your **Distribution Partners** (agencies, consultants, etc.) sell it as their own. The end-client never sees "Nexus AI"—they only see your partner's branding.
+White-label branding is a business model where you provide the core technology, but your **Distribution Partners** (agencies, consultants, etc.) sell it as their own. The end-client never sees "Ezydrag AI"—they only see your partner's branding.
 
 ## 1. Why Implement White-Labeling?
 
@@ -22,9 +22,9 @@ Add the following fields to your `Partners` table:
 ### Phase 2: Domain Masking (CNAME)
 To make it look truly professional, partners should not use your URL.
 1.  **Partner Action:** Partner creates a CNAME record in their DNS (GoDaddy/Cloudflare):
-    *   `agents.partneragency.com` → `portal.nexusai.com`
+    *   `agents.partneragency.com` → `portal.ezydrag.ai`
 2.  **Your Action:** Use a tool like **Vercel Platforms** or a custom middleware in Next.js to detect the incoming hostname (`request.headers.get('host')`).
-3.  **Dynamic Routing:** If the host is not `nexusai.com`, look up the partner in the database associated with that host.
+3.  **Dynamic Routing:** If the host is not `ezydrag.ai`, look up the partner in the database associated with that host.
 
 ### Phase 3: The Dynamic Theme Engine (Frontend)
 In your main Agent UI component, fetch the branding config at the root:
@@ -36,7 +36,7 @@ const branding = await getPartnerBranding(hostname);
 return (
   <div style={{ '--primary-color': branding.color }}>
     <header>
-      <img src={branding.logo || '/default-nexus-logo.png'} />
+      <img src={branding.logo || '/default-ezydrag-logo.png'} />
       <h1>{branding.title}</h1>
     </header>
     <AgentInterface />
@@ -50,7 +50,7 @@ return (
 
 *   **Custom Domain Verification:** Automate the process of checking if their CNAME is pointed correctly before allowing them to "Go Live."
 *   **Wholesale Credit Management:** Since it's white-labeled, you should never bill their end-clients. You bill the **Partner** in bulk, and the partner bills their clients separately.
-*   **Hidden "Powered By":** Offer a "Lite" white-label that keeps a small "Powered by Nexus AI" at the bottom, and a "Full" white-label that removes it entirely for an extra fee.
+*   **Hidden "Powered By":** Offer a "Lite" white-label that keeps a small "Powered by Ezydrag AI" at the bottom, and a "Full" white-label that removes it entirely for an extra fee.
 
 ---
 

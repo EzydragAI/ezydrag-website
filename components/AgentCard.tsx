@@ -29,10 +29,16 @@ export const AgentCard: React.FC<AgentCardProps> = ({ agent }) => {
       <div className="pt-6 border-t border-slate-800">
         <div className="flex items-baseline gap-1 mb-4">
           <span className="text-3xl font-bold">{agent.pricing}</span>
-          {agent.type === 'subscription' && <span className="text-slate-500 text-sm">/month</span>}
         </div>
-        <button className="w-full py-3 bg-slate-800 hover:bg-blue-600 text-white rounded-xl font-bold transition-all">
-          Deploy Now
+        <button 
+          disabled={agent.comingSoon}
+          className={`w-full py-3 text-white rounded-xl font-bold transition-all ${
+            agent.comingSoon 
+              ? 'bg-slate-800/50 text-slate-500 cursor-not-allowed' 
+              : 'bg-slate-800 hover:bg-blue-600'
+          }`}
+        >
+          {agent.comingSoon ? 'Coming Soon' : 'Deploy Now'}
         </button>
       </div>
     </div>

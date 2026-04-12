@@ -23,7 +23,7 @@ export function Navbar() {
     { name: 'Services', href: '/#services' },
     { name: 'Agents', href: '/#agents' },
     { name: 'Hosting', href: '/#hosting' },
-    { name: 'Team', href: '/#team' },
+
     { name: 'Contact', href: '/#contact' },
   ];
 
@@ -34,7 +34,7 @@ export function Navbar() {
           <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
             <Zap className="text-white fill-white" size={20} />
           </div>
-          <span className="text-xl font-bold tracking-tight">NEXUS<span className="text-blue-500">AI</span></span>
+          <span className="text-xl font-bold tracking-tight">EZYDRAG<span className="text-blue-500">AI</span></span>
         </Link>
 
         {/* Desktop Nav */}
@@ -98,10 +98,10 @@ export function Footer() {
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
             <Zap className="text-white fill-white" size={16} />
           </div>
-          <span className="text-lg font-bold tracking-tight">NEXUS<span className="text-blue-500">AI</span></span>
+          <span className="text-lg font-bold tracking-tight">EZYDRAG<span className="text-blue-500">AI</span></span>
         </div>
         <div className="text-slate-500 text-sm">
-          © 2026 Nexus AI Automation. All rights reserved.
+          © 2026 Ezydrag AI Automation. All rights reserved.
         </div>
         <div className="flex gap-6">
           <Link href="#" className="text-slate-500 hover:text-white transition-colors">Privacy Policy</Link>

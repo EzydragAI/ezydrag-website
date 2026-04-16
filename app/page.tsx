@@ -95,12 +95,16 @@ export default function HomePage() {
           <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
             <div className="max-w-3xl">
               <div className="opacity-100 transform-none">
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-8">
-                  Run <br />
-                  your <br />
-                  Business <br />
-                  on <br />
-                  <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-500">Autopilot</span>
+                <h1 className="font-extrabold tracking-tight leading-[1.1] mb-8">
+                  <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl">
+                    Run <br />
+                    your <br />
+                    Business <br />
+                    on <br />
+                  </span>
+                  <span className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-500">
+                    Autopilot
+                  </span>
                 </h1>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="#contact" className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 group shadow-xl shadow-blue-600/20">

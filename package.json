@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@google/genai": "^1.29.0",
+    "@splinetool/react-spline": "^4.1.0",
+    "@splinetool/runtime": "^1.12.85",
     "@tailwindcss/postcss": "^4.2.2",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.38.0",

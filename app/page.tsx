@@ -23,6 +23,7 @@ import {
 import { TEAM, SERVICES, PREBUILT_AGENTS } from '@/lib/constants';
 import { Navbar, Footer } from '@/components/Layout';
 import { AgentCard } from '@/components/AgentCard';
+import { SplineScene } from '@/components/SplineScene';
 
 export default function HomePage() {
   const [formStatus, setFormStatus] = useState<{ loading: boolean; success: boolean; message: string | null }>({
@@ -75,24 +76,32 @@ export default function HomePage() {
       <Navbar />
       <main>
         {/* Hero Section */}
-        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden min-h-[90vh] flex items-center">
+          {/* Spline 3D Background */}
+          <div className="absolute inset-0 z-0">
+            <SplineScene 
+              scene="https://prod.spline.design/gN6mzdtFRGQjNS9Z/scene.splinecode"
+              className="w-full h-full"
+            />
+            {/* Optimized overlay for legibility on all devices */}
+            <div className="absolute inset-0 bg-slate-950/40 lg:bg-gradient-to-r lg:from-slate-950 lg:via-slate-950/80 lg:to-transparent" />
+          </div>
+
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-full pointer-events-none">
             <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/20 blur-[120px] rounded-full" />
             <div className="absolute bottom-[10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/20 blur-[120px] rounded-full" />
           </div>
 
-          <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
             <div className="max-w-3xl">
               <div className="opacity-100 transform-none">
-                <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">
-                  Next-Gen AI Automation
-                </span>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-8">
-                  Automate Your Business with <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-500">Custom AI Agents</span>
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.1] mb-8">
+                  Run <br />
+                  your <br />
+                  Business <br />
+                  on <br />
+                  <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-purple-500">Autopilot</span>
                 </h1>
-                <p className="text-xl text-slate-400 mb-10 leading-relaxed">
-                  We build, deploy, and manage intelligent AI solutions that transform your workflows, reduce costs, and accelerate growth.
-                </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Link href="#contact" className="px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 group shadow-xl shadow-blue-600/20">
                     Start Your Project <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />

@@ -45,7 +45,7 @@ export async function POST(request: Request) {
 
       await transporter.sendMail({
         from: `"${name}" <${email}>`, // Note: Some SMTPs rewrite 'from' to the auth user
-        to: "infoezydrag@gmail.com",
+        to: "ezydrag@gmail.com",
         replyTo: email,
         subject: `New Lead: ${name} (Ezydrag AI Contact Form)`,
         text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,

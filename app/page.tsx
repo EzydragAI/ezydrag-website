@@ -49,6 +49,7 @@ function Loader({ progress }: { progress: number }) {
   return (
     <div className="loader-wrap" role="status" aria-live="polite" aria-label="Loading">
       <div className="loader-logo">
+        <img src="/images/logo1.png" alt="" aria-hidden="true" className="loader-logo__mark" />
         EZYDRAG<span className="loader-logo__reg">®</span>
       </div>
       <div className="loader-bar-bg">
@@ -72,6 +73,12 @@ export default function HomePage() {
     message: string | null;
   }>({ loading: false, success: false, message: null });
   const [showMsg, setShowMsg] = useState(false);
+  const msgTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    return () => {
+      if (msgTimerRef.current) clearTimeout(msgTimerRef.current);
+    };
+  }, []);
 
   const sceneReadyRef = useRef(false);
   useEffect(() => {
@@ -99,7 +106,9 @@ export default function HomePage() {
         if (elapsed < minMs) pct = Math.min(96, 88 + (elapsed / minMs) * 8);
       }
       if (elapsed >= maxMs) pct = 100;
-      setLoadPct(pct);
+      // Floor before setState: the loader displays whole percents, so identical
+      // values let React bail out instead of re-rendering the page every frame.
+      setLoadPct(Math.floor(pct));
 
       if ((ready && elapsed >= minMs && pct >= 100) || elapsed >= maxMs) {
         doneTimer = setTimeout(() => {
@@ -132,19 +141,29 @@ export default function HomePage() {
     const spacerEl = spacerRef.current;
     if (!scrollEl || !interfaceEl || !spacerEl) return;
 
+    // Cached geometry so the hot scroll path only reads scrollTop.
+    // Refreshed by syncLayout on resize / content changes.
+    let maxScroll = 0;
+    let vh = 1;
+
     const onScroll = () => {
-      const maxScroll = Math.max(0, scrollEl.scrollHeight - scrollEl.clientHeight);
       const top = Math.min(scrollEl.scrollTop, maxScroll);
       const progress = maxScroll > 0 ? top / maxScroll : 0;
       document.documentElement.style.setProperty("--scroll", progress.toFixed(4));
       interfaceEl.style.transform = `translate3d(0, ${-top}px, 0)`;
+
+      const heroFade = Math.min(1, Math.max(0, (top - vh * 0.4) / (vh * 0.5)));
+      document.documentElement.style.setProperty("--header-opacity", (1 - heroFade).toFixed(3));
+      document.documentElement.classList.toggle("is-past-hero", heroFade >= 1);
     };
 
     const syncLayout = () => {
+      vh = window.innerHeight || 1;
       const prevMax = Math.max(0, scrollEl.scrollHeight - scrollEl.clientHeight);
       const progress = prevMax > 0 ? scrollEl.scrollTop / prevMax : 0;
-      spacerEl.style.height = `${interfaceEl.scrollHeight}px`;
+      spacerEl.style.height = `${Math.max(0, interfaceEl.scrollHeight - scrollEl.clientHeight)}px`;
       const nextMax = Math.max(0, scrollEl.scrollHeight - scrollEl.clientHeight);
+      maxScroll = nextMax;
       scrollEl.scrollTop = progress * nextMax;
       onScroll();
     };
@@ -224,7 +243,9 @@ export default function HomePage() {
       });
     }
     setShowMsg(true);
-    setTimeout(() => setShowMsg(false), 3500);
+    // Clear any previous timer so a rapid resubmit isn't hidden early.
+    if (msgTimerRef.current) clearTimeout(msgTimerRef.current);
+    msgTimerRef.current = setTimeout(() => setShowMsg(false), 3500);
   };
 
   return (
@@ -334,26 +355,17 @@ export default function HomePage() {
                   </section>
 
                   <section id="contact" className="section section--center section--contact" data-num="04">
-                    <div className="marquee marquee--top" aria-hidden="true">
-                      <div className="marquee__track">
-                        <span>LET&apos;S TALK — LET&apos;S TALK — </span>
-                        <span>LET&apos;S TALK — LET&apos;S TALK — </span>
-                      </div>
-                    </div>
-
                     <p className="kicker">04 — Contact</p>
                     <h2>
-                      Let&apos;s automate
-                      <br />
-                      the <em>impossible</em>.
+                      Send us a <em>mail</em>.
                     </h2>
 
-                    <a href="mailto:ezydrag@gmail.com" className="cta cta--big">
-                      ezydrag@gmail.com
+                    <a href="mailto:admin@ezydrag.in" className="cta cta--big">
+                      admin@ezydrag.in
                     </a>
 
                     <div className="contact-form-wrap">
-                      <p className="form-kicker">Or send us a message</p>
+                      <p className="form-kicker">Tell us your concern</p>
                       <form onSubmit={handleSubmit} className="contact-form">
                         <div>
                           <label className="form-label" htmlFor="name">Full Name</label>
@@ -364,11 +376,11 @@ export default function HomePage() {
                           <input id="email" required name="email" type="email" autoComplete="email" placeholder="john@company.com" className="form-input" />
                         </div>
                         <div>
-                          <label className="form-label" htmlFor="message">Message</label>
-                          <textarea id="message" required name="message" rows={3} placeholder="Tell us about your project..." className="form-textarea" />
+                          <label className="form-label" htmlFor="message">Issue</label>
+                          <textarea id="message" required name="message" rows={3} placeholder="Describe your issue or concern..." className="form-textarea" />
                         </div>
                         <button type="submit" disabled={formStatus.loading} className="form-btn">
-                          {formStatus.loading ? "Sending…" : "Send Message →"}
+                          {formStatus.loading ? "Sending…" : "Send Mail →"}
                         </button>
                         <AnimatePresence>
                           {formStatus.message && showMsg && (
@@ -376,6 +388,7 @@ export default function HomePage() {
                               initial={{ opacity: 0, y: 8 }}
                               animate={{ opacity: 1, y: 0 }}
                               exit={{ opacity: 0 }}
+                              role="status"
                               className={`form-status ${formStatus.success ? "form-status--ok" : "form-status--err"}`}
                             >
                               {formStatus.message}

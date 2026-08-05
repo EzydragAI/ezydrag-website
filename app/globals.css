@@ -157,11 +157,21 @@ img, svg { display: block; max-width: 100%; }
 }
 
 .loader-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.55em;
   font-family: Unbounded, sans-serif;
   font-weight: 900;
   font-size: clamp(20px, 4vw, 28px);
   letter-spacing: 0.1em;
   color: #fff;
+}
+
+.loader-logo__mark {
+  height: 1.7em;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .loader-logo__reg {
@@ -250,11 +260,25 @@ img, svg { display: block; max-width: 100%; }
   z-index: 40;
   mix-blend-mode: difference;
   pointer-events: none;
+  opacity: var(--header-opacity, 1);
+  transition: opacity 0.25s ease;
 }
 
 .header button { pointer-events: auto; }
 
+/* Header fades out once past the hero section */
+.is-past-hero .header {
+  pointer-events: none;
+}
+
+.is-past-hero .header button {
+  pointer-events: none;
+}
+
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
   font-family: Unbounded, sans-serif;
   font-weight: 900;
   font-size: clamp(14px, 2.5vw, 18px);
@@ -264,6 +288,13 @@ img, svg { display: block; max-width: 100%; }
   color: #fff;
   padding: 0;
   min-height: 44px;
+}
+
+.logo__mark {
+  height: 1.9em;
+  width: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .logo__reg {
@@ -418,11 +449,10 @@ img, svg { display: block; max-width: 100%; }
 
 .section--contact {
   height: auto;
-  min-height: 100vh;
-  min-height: 100dvh;
+  min-height: auto;
   justify-content: flex-start;
   padding-top: max(10vh, 88px);
-  padding-bottom: max(10vh, 80px);
+  padding-bottom: 24px;
   overflow: visible;
   gap: 8px;
 }
@@ -449,18 +479,16 @@ img, svg { display: block; max-width: 100%; }
   z-index: 0;
 }
 
-/* Products ghost number: top-right, clear of product list */
+/* Products ghost number: uniform size, top-right, clear of product list */
 .section--products[data-num]::before {
   top: max(2vh, 20px);
-  font-size: clamp(64px, 14vw, 200px);
 }
 
-/* Contact ghost number: above the LET'S TALK marquee */
+/* Contact ghost number: uniform size, top-right */
 .section--contact[data-num]::before {
   top: max(3vh, 24px);
   bottom: auto;
   right: 4vw;
-  font-size: clamp(56px, 9vw, 120px);
 }
 
 /* ─── Typography ─── */
@@ -1006,19 +1034,12 @@ em {
 
   .section--products[data-num]::before {
     top: max(2vh, 12px);
-    font-size: clamp(48px, 16vw, 72px);
   }
 
   .section--contact[data-num]::before {
     top: max(2.5vh, 18px);
     bottom: auto;
     right: 3vw;
-    font-size: clamp(48px, 14vw, 88px);
-  }
-
-  .section--contact .marquee--top {
-    margin-top: max(56px, 9vh);
-    margin-bottom: 32px;
   }
 
   .product-row {
@@ -1061,7 +1082,7 @@ em {
 
   .section--contact {
     padding-top: 80px;
-    padding-bottom: 48px;
+    padding-bottom: 24px;
   }
 
   .cta--big {

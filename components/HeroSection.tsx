@@ -7,7 +7,7 @@ type HeroSectionProps = {
 export function HeroSection({ onCta }: HeroSectionProps) {
   return (
     <section className="section section--center section--hero">
-      <p className="tagline">AI Automation Agency · India → Worldwide</p>
+      <p className="tagline">AI Automation · India → Worldwide</p>
 
       <h1 className="hero-title">
         We automate

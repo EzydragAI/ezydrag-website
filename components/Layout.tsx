@@ -58,6 +58,7 @@ export function Navbar({
     <>
       <header className="header">
         <button type="button" className="logo" onClick={() => go(null)} aria-label="EZYDRAG home">
+          <img src="/images/logo1.png" alt="" aria-hidden="true" className="logo__mark" />
           EZYDRAG<span className="logo__reg">®</span>
         </button>
 
@@ -82,7 +83,7 @@ export function Navbar({
 
       {mobileOpen && (
         <div className="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation">
-          <button type="button" className="mobile-nav__close" onClick={() => setMobileOpen(false)} aria-label="Close">
+          <button type="button" className="mobile-nav__close" onClick={() => setMobileOpen(false)} aria-label="Close" autoFocus>
             <X size={24} />
           </button>
           {NAV.map((n) => (

@@ -24,6 +24,8 @@ function detectQuality(): Quality {
   const gl =
     canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
   if (!gl) return "off";
+  // Release the probe context instead of leaving it to hit the browser cap.
+  (gl as WebGLRenderingContext).getExtension("WEBGL_lose_context")?.loseContext();
 
   const mem =
     (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8;
@@ -66,6 +68,7 @@ export function ThreeCanvas({ scrollRef, quality: qualityProp, onReady }: ThreeC
     const includeCards = !isLow;
     const includeServicesShapes = !isLow;
 
+    let disposed = false;
     const disposables: { dispose: () => void }[] = [];
     const track = <T extends { dispose: () => void }>(obj: T) => {
       disposables.push(obj);
@@ -240,6 +243,11 @@ export function ThreeCanvas({ scrollRef, quality: qualityProp, onReady }: ThreeC
     textureLoader.load(
       "/images/logo1.png",
       (tex) => {
+        // Effect already cleaned up before the texture arrived: free it and bail.
+        if (disposed) {
+          tex.dispose();
+          return;
+        }
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
         tex.minFilter = THREE.LinearMipmapLinearFilter;
@@ -480,15 +488,30 @@ export function ThreeCanvas({ scrollRef, quality: qualityProp, onReady }: ThreeC
       }
     }, 1800);
 
+    // Cache maxScroll so the per-frame scroll handler only reads scrollTop
+    // (avoids potential forced synchronous layout on every scroll event).
+    let maxScroll = 0;
+    const recalcMaxScroll = () => {
+      maxScroll = Math.max(0, scrollEl.scrollHeight - scrollEl.clientHeight);
+    };
     const updateScroll = () => {
-      const maxScroll = scrollEl.scrollHeight - scrollEl.clientHeight;
       targetProgress = maxScroll > 0 ? scrollEl.scrollTop / maxScroll : 0;
     };
+    recalcMaxScroll();
+    const scrollRo = new ResizeObserver(() => {
+      recalcMaxScroll();
+      updateScroll();
+    });
+    scrollRo.observe(scrollEl);
+    if (scrollEl.firstElementChild) scrollRo.observe(scrollEl.firstElementChild);
     scrollEl.addEventListener("scroll", updateScroll, { passive: true });
     updateScroll();
 
     const onVis = () => {
       running = document.visibilityState === "visible";
+      // Cancel any frame still pending from before the tab was hidden,
+      // otherwise each hide/show cycle spawns an extra concurrent loop.
+      cancelAnimationFrame(animId);
       if (running) {
         last = performance.now();
         animId = requestAnimationFrame(animate);
@@ -574,10 +597,12 @@ export function ThreeCanvas({ scrollRef, quality: qualityProp, onReady }: ThreeC
     window.visualViewport?.addEventListener("resize", onResize);
 
     return () => {
+      disposed = true;
       running = false;
       clearTimeout(readyFallback);
       cancelAnimationFrame(animId);
       cancelAnimationFrame(resizeRaf);
+      scrollRo.disconnect();
       scrollEl.removeEventListener("scroll", updateScroll);
       window.removeEventListener("resize", onResize);
       window.visualViewport?.removeEventListener("resize", onResize);

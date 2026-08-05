@@ -3,6 +3,11 @@ import saveToGoogleSheets from '@/functions/saveToGoogleSheets';
 import emailRegex from '@/functions/emailRegex';
 import nodemailer from 'nodemailer';
 
+const escapeHtml = (value: string) =>
+  value.replace(/[&<>"']/g, (ch) =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch] as string)
+  );
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -43,19 +48,26 @@ export async function POST(request: Request) {
         },
       });
 
+      // Strip quotes/newlines from the display name (header safety) and
+      // HTML-escape all user input before interpolating into the HTML body.
+      const safeName = name.trim().replace(/[\r\n"]+/g, ' ');
+      const safeHtmlName = escapeHtml(name.trim());
+      const safeHtmlEmail = escapeHtml(email.trim());
+      const safeHtmlMessage = escapeHtml(message.trim());
+
       await transporter.sendMail({
-        from: `"${name}" <${email}>`, // Note: Some SMTPs rewrite 'from' to the auth user
-        to: "ezydrag@gmail.com",
+        from: `"${safeName}" <${email}>`, // Note: Some SMTPs rewrite 'from' to the auth user
+        to: "admin@ezydrag.in",
         replyTo: email,
-        subject: `New Lead: ${name} (Ezydrag AI Contact Form)`,
+        subject: `New Lead: ${safeName} (Ezydrag AI Contact Form)`,
         text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
         html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b;">
             <h2 style="color: #2563eb;">New Lead Received!</h2>
-            <p><strong>Name:</strong> ${name}</p>
-            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Name:</strong> ${safeHtmlName}</p>
+            <p><strong>Email:</strong> ${safeHtmlEmail}</p>
             <p><strong>Requirements/Message:</strong></p>
-            <blockquote style="background: #f1f5f9; padding: 16px; border-radius: 8px; white-space: pre-wrap;">${message}</blockquote>
+            <blockquote style="background: #f1f5f9; padding: 16px; border-radius: 8px; white-space: pre-wrap;">${safeHtmlMessage}</blockquote>
           </div>
         `,
       });

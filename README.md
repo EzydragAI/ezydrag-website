@@ -1,20 +1,54 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# EzyDrag website
 
-# Run and deploy your AI Studio app
+Complete current static website source. No npm installation or build step is needed.
 
-This contains everything you need to run your app locally.
+## Run locally
 
-View your app in AI Studio: https://ai.studio/apps/b6474f4b-f85e-4961-b9c6-904ceca45bf4
+From the extracted ezydrag directory:
 
-## Run Locally
+    python -m http.server 8000 --directory dist
 
-**Prerequisites:**  Node.js
+Open http://localhost:8000 in your browser. On Windows, use `py` instead of `python` if needed.
+You can also open dist/index.html directly, although a local server is recommended.
 
+## Files
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- dist/index.html: content, navigation, quote builder, terminal UI, FAQs and EzyBiz.
+- dist/style.css: responsive styles, branding, motion and reduced-motion support.
+- dist/app.js: all interactions, terminal simulation, quote preparation and downloads.
+- dist/social-config.js: social profile URLs and WhatsApp configuration.
+- dist/ezydrag-nav.svg: supplied top navigation logo.
+- dist/brand.svg: original EzyDrag mark used by EzyBiz and the favicon.
+- dist/ezydrag-full.png: full footer wordmark.
+- .openai/hosting.json: current Sites project identity and static output directory.
+
+## Editing
+
+Edit HTML for content, CSS for appearance and app.js for interactions.
+The terminal is a local simulation with sample data. It runs five sequential stages
+in about 25 seconds (20 timed beats at 1,250 ms each). Pause, resume, step, reset,
+replay and supported typed commands are included. It does not access live systems.
+
+## Social and WhatsApp links
+
+Fill in verified HTTPS profile URLs in dist/social-config.js. For WhatsApp, enter
+the international phone number including country code. Unconfigured links remain
+hidden. Do not include a leading zero from a domestic phone format.
+
+## Quote/contact behaviour
+
+The visitor reviews the brief and selects Send brief. This opens their email app
+with a populated draft; they complete the send there. There is no submission
+backend, stored lead database or automatic email delivery. Downloads create a local
+text file. hello@ezydrag.in is provisional and must be confirmed before public use.
+To change it, replace the address in both dist/index.html and dist/app.js.
+EzyBiz uses preset guidance, not a live AI model.
+
+## Hosting
+
+Deploy the contents of dist to any static web host. The existing Sites identity is
+preserved in .openai/hosting.json for updates to the current site. For a new independent
+Sites project, do not reuse the existing project_id. No credentials are included.
+
+All current site source and assets are included. Git history and temporary deployment
+archives are excluded. LinkedIn artwork was delivered separately.

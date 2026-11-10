@@ -96,7 +96,8 @@ export async function ask(body, ip) {
     try { type = JSON.parse(body).error?.type || ""; } catch {}
     console.error("Anthropic", res.status, body.slice(0, 200));
     // status 200 so proxies/CDNs don't mask the body; the browser falls back to approved answers on any "error"
-    return { status: 200, json: { error: "upstream", detail: res.status + " " + type } };
+    const shape = res.status === 401 ? { len: KEY.length, prefixOk: KEY.startsWith("sk-ant-"), hasSpaceOrQuote: /[\s"'`]/.test(KEY) } : undefined; // no secret revealed
+    return { status: 200, json: { error: "upstream", detail: res.status + " " + type, key: shape } };
   }
   const j = await res.json();
   let a = (j.content || []).filter((b) => b.type === "text").map((b) => b.text).join("").trim();

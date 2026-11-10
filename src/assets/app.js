@@ -186,7 +186,10 @@ const TALK=[
 /* Cuss words and insults are never answered with "send it to a person". If a real question is left once the rude words are removed, we answer that; otherwise we stay light and steer back to what we can help with. */
 const CUSS=/\b(f+u+c+k\w*|fck\w*|sh[i1]+t\w*|bullshit|bitch\w*|asshole|bastard|dickhead|dick|piss\w*|crap\w*|damn\w*|wtf|stfu|idiot\w*|moron\w*|stupid|dumb\w*|loser|suck\w*|useless|madarchod|bhenchod|behenchod|chutiya\w*|gandu|harami|bakchod|bc|mc)\b/gi;
 const CALM=["Ha, let's keep it friendly 🙂 I'm good at questions about Ezydrag: what we build, how it works, security, how we price. What would you like to know?","I hear the frustration. Tell me what you're trying to find out about Ezydrag and I'll do my best to get you a straight answer.","Rough day? I'm happy to help with anything about our AI agents, data, or how we work. Try: “What do you build?”","Fair enough, and thanks for the honesty. Ask me anything about Ezydrag and I'll be as useful as I can."];
-function cuss(text){CUSS.lastIndex=0;if(!CUSS.test(text))return null;CUSS.lastIndex=0;const clean=text.replace(CUSS," ").replace(/\s+/g," ").trim();return tok(clean).length>=2?{clean}:{reply:pick(CALM)}}
+function cuss(text){CUSS.lastIndex=0;if(!CUSS.test(text))return null;CUSS.lastIndex=0;const clean=text.replace(CUSS," ").replace(/\s+/g," ").trim();
+  /* keep going only if what's left still looks like a real question ("what the f*** does your agent do") */
+  const real=tok(clean).length>=1&&clean.split(" ").length>=4&&(/\?/.test(clean)||/^(what|how|why|who|where|when|which|do|does|can|could|is|are|will|would|tell|explain|show)\b/i.test(clean));
+  return real?{clean}:{reply:pick(CALM)}}
 const smallTalk=t=>{const s=t.trim();const cz=cuss(s);if(cz&&cz.reply)return cz.reply;if(s.split(/\s+/).length>14)return null;for(const[re,f]of TALK)if(re.test(s))return f();return null};
 const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
 async function typeOut(el,text){if(reduce){el.textContent=text;return}const words=text.split(" ");el.textContent="";for(let i=0;i<words.length;i++){el.textContent+=(i?" ":"")+words[i];el.closest(".log").scrollTop=1e9;await wait(Math.min(38,900/words.length+12))}}

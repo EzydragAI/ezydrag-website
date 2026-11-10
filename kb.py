@@ -53,6 +53,7 @@ def main():
     for q, a in re.findall(r"### (.*?)\n\n(.*?)(?=\n\n###|\Z)", faq, re.S):
         a = re.sub(r"\n\nSource:.*", "", a, flags=re.S).strip()
         kb.append({"p": "faq.html", "h": "FAQ: " + q.strip(), "t": q.strip() + " " + a, "faq": 1})
+    kb = [c for c in kb if "poem about llamas" not in c["t"]]  # demo-widget UI text, not company facts
     seen, uniq = set(), []
     for c in kb:  # drop repeated nav/footer-style chunks
         key = c["t"][:80]

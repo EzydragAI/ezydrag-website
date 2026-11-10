@@ -87,7 +87,7 @@ export async function ask(body, ip) {
     res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "content-type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({ model: MODEL, max_tokens: MAX_OUT, temperature: 0.2, system: SYSTEM, messages }),
+      body: JSON.stringify({ model: MODEL, max_tokens: MAX_OUT, system: SYSTEM, messages }),
       signal: AbortSignal.timeout(15000),
     });
   } catch (e) { return { status: 200, json: { error: "upstream", detail: "network:" + String(e && e.name) } }; }

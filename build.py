@@ -12,7 +12,7 @@ import blog as BLOG
 import brand as B
 
 ROOT = Path(__file__).parent
-SITE_URL = "https://ezydrag.in"   # confirm production domain before launch
+SITE_URL = "https://www.ezydrag.com"   # production host (apex redirects to www)
 SITE_NAME = "Ezydrag"
 EMAIL = "hello@ezydrag.in"
 # Social links. LinkedIn is a placeholder slug until the real company page is confirmed.
@@ -506,7 +506,7 @@ HEAD = '''<meta charset="UTF-8"><meta name="viewport" content="width=device-widt
 <title>{title}</title><meta name="description" content="{desc}"><meta name="robots" content="{robots}"><link rel="canonical" href="{url}"><link rel="alternate" hreflang="en" href="{url}"><link rel="alternate" hreflang="x-default" href="{url}"><link rel="alternate" type="text/markdown" title="Ezydrag for AI assistants" href="llms.txt">
 <meta property="og:type" content="{ogtype}"><meta property="og:site_name" content="Ezydrag"><meta property="og:title" content="{title}"><meta property="og:description" content="{desc}"><meta property="og:url" content="{url}"><meta property="og:image" content="{base}/{ogimg}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Ezydrag: AI agents for revenue teams, built and run by us"><meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{title}"><meta name="twitter:description" content="{desc}"><meta name="twitter:image" content="{base}/{ogimg}"><meta name="twitter:image:alt" content="Ezydrag: AI agents for revenue teams, built and run by us"><meta name="author" content="Ezydrag"><meta name="format-detection" content="telephone=no">
-<meta name="theme-color" content="#ffffff"><link rel="icon" href="assets/brand.svg" type="image/svg+xml"><link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#ffffff"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="assets/brand.svg" type="image/svg+xml"><link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <link rel="stylesheet" href="assets/style.css"><script defer src="assets/config.js"></script>{ld}'''
@@ -639,6 +639,9 @@ def main():
     B.export_files(DIST / "assets/brand", ICONS)
     for f in ("brand.svg", "ezydrag-nav.svg"):
         (DIST / "assets" / f).write_text(B.mark(64, title="Ezydrag").replace('class="', 'data-c="'))
+    shutil.copy(SRC / "assets/favicon-original.svg", DIST / "assets/brand.svg")  # tab icon = the existing orange favicon
+    shutil.copy(SRC / "assets/favicon-original.svg", DIST / "brand.svg")          # old root path, kept for cached links
+    shutil.copy(SRC / "assets/favicon.ico", DIST / "favicon.ico")                  # /favicon.ico for search engines
     for keep in ("ezydrag-full.png", "og.png", "icon-192.png", "icon-512.png", "apple-touch-icon.png"):
         shutil.copy(SRC / "assets" / keep, DIST / "assets" / keep)
     for png in (SRC / "assets/clients").glob("*.png"):

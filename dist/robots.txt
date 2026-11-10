@@ -39,4 +39,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-Sitemap: https://ezydrag.in/sitemap.xml
+Sitemap: https://www.ezydrag.com/sitemap.xml

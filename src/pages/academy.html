@@ -1,0 +1,27 @@
+<!--{"title": "Ezydrag Academy", "desc": "", "nav": "", "crumbs": [["Ezydrag Academy", ""]]}-->
+<section class="hero-band">
+ <div class="wrap hero page-hero has-art">
+  <div style="display:flex;flex-direction:column;gap:var(--s3)">{{CRUMBS}}
+  <h1>Get your team ready. <span class="hl">By doing.</span></h1>
+  <p class="sub">Short lessons in practice apps: consent, data handling and reviewing what agents draft. Safe to get wrong.</p>
+  <div class="hero-ctas" style="justify-content:flex-start"><a class="btn btn-primary btn-lg" href="#demo">{{i:play}}Start a simulation</a></div></div>
+  {{ART:academy}}
+ </div>
+</section>
+
+<section class="section" id="demo"><div class="wrap">
+ <div class="row-head"><div class="head rv"><span class="eyebrow">{{i:cap}} DPDP for teams</span><h2>Three simulations.</h2><p class="lead">Watch the demo, then do it yourself.</p></div><span class="beta" style="font-size:.78rem;padding:6px 12px">BETA</span></div>
+ <div class="sim" data-sim data-load="simulation"><div class="sim-side" role="group" aria-label="Simulations"></div><div class="pane" aria-live="polite"></div></div>
+ <p class="note" style="margin-top:var(--s2)">Sample data. Nothing leaves this page. "Spot personal data" fails once to show the error screen.</p>
+</div></section>
+
+<section class="section mist" id="beta"><div class="wrap split">
+ <div class="head rv" style="margin:0"><span class="eyebrow">Beta</span><h2>Train your team.</h2><p class="lead">A few teams at a time.</p></div>
+ <form class="form-card" data-beta novalidate>
+  <label class="field" for="b-name">Name<input id="b-name" required autocomplete="name"></label>
+  <label class="field" for="b-email">Work email<input id="b-email" type="email" required autocomplete="email"></label>
+  <label class="field" for="b-topic">Topic<select id="b-topic"><option>DPDP and GDPR</option><option>AI adoption</option><option>Onboarding</option><option>Other</option></select></label>
+  <button class="btn btn-primary" type="submit">Request access {{i:arrow}}</button>
+  <p class="note" data-beta-out role="status">Opens an email draft to hello@ezydrag.in.</p>
+ </form>
+</div></section>

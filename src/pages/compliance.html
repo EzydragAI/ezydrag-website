@@ -1,0 +1,64 @@
+<!--{"title": "Consent and compliance", "desc": "", "nav": "security", "crumbs": [["Trust", "security.html"], ["Consent and compliance", ""]]}-->
+<section class="hero-band">
+ <div class="wrap hero page-hero has-art">
+  <div style="display:flex;flex-direction:column;gap:18px">{{CRUMBS}}
+  <h1>Agents should only contact <span class="hl">people who said yes.</span></h1>
+  <p class="sub">We map where lead data lives, check consent against the law and build the fixes before any agent sends a single message.</p>
+  <div class="hero-ctas" style="justify-content:flex-start"><a class="btn btn-primary btn-lg" href="#readiness">Check readiness</a><a class="link" href="#gap-analysis">How it works {{i:arrow}}</a></div></div>
+  {{ART:shield}}
+ </div>
+</section>
+
+<section class="section"><div class="wrap">
+ <div class="head rv"><span class="eyebrow">Frameworks</span><h2>Three laws. One map of your lead data.</h2><p class="lead">Running several AI agents? We add a governance layer that logs what each agent does, which data it touches and who approved it, mapped to these laws.</p></div>
+ <div class="grid g3">
+  <article class="card rv" id="gdpr"><div style="display:flex;gap:12px;align-items:center">BADGE_GDPR<div><h3>GDPR</h3><span class="note">European Union</span></div></div><ul class="check-list"><li>{{i:tick}}Consent records</li><li>{{i:tick}}Access and erasure rights</li><li>{{i:tick}}Cross-border transfers</li></ul></article>
+  <article class="card rv" id="hipaa"><div style="display:flex;gap:12px;align-items:center">BADGE_HIPAA<div><h3>HIPAA</h3><span class="note">US health data</span></div></div><ul class="check-list"><li>{{i:tick}}Minimum necessary access</li><li>{{i:tick}}Encryption and logs</li><li>{{i:tick}}Human review</li></ul></article>
+  <article class="card rv" id="dpdp"><div style="display:flex;gap:12px;align-items:center">BADGE_DPDP<div><h3>DPDPA</h3><span class="note">India, 2023 Act</span></div></div><ul class="check-list"><li>{{i:tick}}Consent and notices</li><li>{{i:tick}}Security standards</li><li>{{i:tick}}Erasure and grievances</li></ul></article>
+ </div>
+ <p class="note" style="margin-top:14px">We run gap analyses and build compliant systems. We are not a certification body, and this is not legal advice.</p>
+</div></section>
+
+<section class="section mist"><div class="wrap split">
+ <div class="head rv" style="margin:0"><span class="eyebrow">{{i:cal}} DPDP deadline</span><h2>The clock is running.</h2><p class="lead">Notified 13 Nov 2025. Due 13 May 2027. It may come sooner.</p></div>
+ <div class="card box rv" style="gap:14px"><span class="note">Time left</span><div class="countdown" data-countdown="2027-05-13T00:00:00+05:30" role="timer"></div></div>
+</div></section>
+
+<section class="section" id="gap-analysis"><div class="wrap">
+ <div class="head rv"><span class="eyebrow">{{i:search}} Gap analysis</span><h2>Four steps.</h2></div>
+ <ol class="steps">
+  <li class="rv"><span class="n">01 MAP</span><h3 class="h4">Find the data</h3><p>Every system, every flow.</p></li>
+  <li class="rv"><span class="n">02 COMPARE</span><h3 class="h4">Check the law</h3><p>GDPR, DPDP, HIPAA.</p></li>
+  <li class="rv"><span class="n">03 RANK</span><h3 class="h4">Prioritise risk</h3><p>Urgent fixes first.</p></li>
+  <li class="rv"><span class="n">04 FIX</span><h3 class="h4">Build it</h3><p>Consent, deletion, checks.</p></li>
+ </ol>
+ <div class="chips" style="margin-top:28px"><span class="tag">{{i:graph}} Data map</span><span class="tag">{{i:alert}} Risk-ranked report</span><span class="tag">{{i:list}} Roadmap</span><span class="tag">{{i:bolt}} Optional implementation</span></div>
+</div></section>
+
+<section class="section mist" id="readiness"><div class="wrap split" style="align-items:start">
+ <div class="head rv" style="margin:0"><span class="eyebrow">{{i:check}} Readiness check</span><h2>Ten questions.</h2><p class="lead">Answers stay on this page.</p></div>
+ <div class="card box assess" data-assess>
+  <div class="q"><span>We know every system with personal data.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>Every list has a consent source.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>Our privacy notice is plain language.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>Withdrawing consent is easy.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>We can erase data everywhere.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>Data is encrypted, access role-based.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>We have a breach plan with owners.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>Grievances answered within 90 days.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>Vendor contracts cover data duties.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div class="q"><span>AI tools see only what they need.</span><span class="yn" role="group" aria-label="Answer"><button data-v="y" aria-pressed="false">Yes</button><button data-v="n" aria-pressed="false">No</button></span></div>
+  <div data-a-out style="padding-top:16px" aria-live="polite"></div>
+  <a class="btn btn-primary" href="demo.html" style="align-self:flex-start">Book a gap analysis {{i:arrow}}</a>
+ </div>
+</div></section>
+
+<section class="section" id="protect"><div class="wrap">
+ <div class="head rv"><span class="eyebrow">{{i:lock}} Our own rules</span><h2>We meet the standard we audit.</h2></div>
+ <div class="grid g4">
+  <div class="card rv"><span class="ico">{{i:doc}}</span><h3 class="h4">Data contracts</h3><p>With every client.</p></div>
+  <div class="card rv"><span class="ico">{{i:lock}}</span><h3 class="h4">Encryption</h3><p>On every agent.</p></div>
+  <div class="card rv"><span class="ico">{{i:refresh}}</span><h3 class="h4">Deletion</h3><p>On request or at project end.</p></div>
+  <div class="card rv"><span class="ico">{{i:chat}}</span><h3 class="h4">Grievances</h3><p>90-day response.</p></div>
+ </div>
+</div></section>

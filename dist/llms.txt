@@ -1,0 +1,47 @@
+# Ezydrag
+
+> Ezydrag is an AI agent studio in India. We design, build and run AI agents for revenue teams (sales, marketing and RevOps), inside the tools they already use: CRM (Salesforce, HubSpot, Attio), marketing automation (Marketo, HubSpot), data (Snowflake, BigQuery, Databricks), workflows (n8n, MCP servers, APIs) and Slack, Microsoft 365 or Google Workspace. A person on the client's team approves every important step.
+
+Key facts:
+- Model: a service, not software. We build, run and improve the agents.
+- Flagship: Sales Nurture Agent (capture, enrich, score, nurture, meeting, won).
+- Portfolio: Email Creation Agent, Email QA Agent, QBR Generator, AI PTA, Voice Agent (with Nutaan AI), Ask Ezydrag, Prospecting Agent, Governance Agent.
+- Built to order: Speed-to-Lead, Churn and Upsell, Deal Follow-up, CRM Cleanup, Forecasting, Deal Desk, Attribution agents.
+- Agents never negotiate prices and never send important messages without approval.
+- Legal name: Ezydrag Private Limited. Offices: Kolkata, Bangalore, Durgapur. Contact: hello@ezydrag.in
+
+## Pages
+
+- [Ezydrag - AI agent studio for revenue teams](https://ezydrag.in/index.html): Ezydrag designs, builds and runs AI agents for sales and marketing teams, starting with lead nurture, email QA and reporting. A person approves every key step.
+- [AI agents we build - Sales Nurture, Email QA, QBR - Ezydrag](https://ezydrag.in/agents.html): Sixteen AI agents for revenue teams: nine we run today, from Sales Nurture to Email QA, and seven built to order, like Speed-to-Lead and Churn.
+- [How we work - AI agents as a service - Ezydrag](https://ezydrag.in/product.html): Ezydrag is a service, not software to learn. We map the task, build the agent in your tools, run it every day and improve it. You approve what matters.
+- [Customers - AI agents in production - Ezydrag](https://ezydrag.in/customers.html): See how RightWave, a US marketing automation company, runs lead nurture and email agents built by Ezydrag, and what Cerkle, Eternup and Nutaan AI say.
+- [Pricing - Pilot, run and studio plans - Ezydrag](https://ezydrag.in/pricing.html): Start with one agent on one task, let us run your agents, or keep our studio on call for new ones. Every engagement is scoped and priced up front, in writing.
+- [Trust - How Ezydrag agents stay safe - Ezydrag](https://ezydrag.in/security.html): Our agents ask before important actions, show their reasons, log every step and only reach the systems you connect. How we protect your data, in plain words.
+- [About Ezydrag - The AI agent studio](https://ezydrag.in/about.html): Ezydrag is a small AI agent studio in Kolkata, Bangalore and Durgapur. We build and run AI agents for revenue teams. Meet the people and the agents.
+- [FAQ - AI agents built and run by Ezydrag](https://ezydrag.in/faq.html): Plain answers about Ezydrag: what we build, custom agents, approvals, which tools we connect to, data safety, pricing and how to get started.
+- [Book a call - Tell us the agent you need - Ezydrag](https://ezydrag.in/demo.html): A 30-minute call with the people who would build your agent. Bring one task your team repeats every week. We'll tell you honestly if an agent should do it.
+- [Context graph - How our agents know your business - Ezydrag](https://ezydrag.in/data-graph.html): The context graph links Salesforce, Marketo, analytics and meeting notes, so every Ezydrag agent works with the full story. Try asking it about a lead.
+- [Token efficiency - Lower AI running costs - Ezydrag](https://ezydrag.in/token-optimization.html): How Ezydrag keeps AI agents affordable at scale: lean context, answers without a model call, and agents that audit token use. Estimate your bill.
+- [Privacy notice - How Ezydrag handles personal data](https://ezydrag.in/privacy.html): How Ezydrag Private Limited collects, uses, protects and deletes personal data, and your rights under India's DPDPA 2023 and the EU and UK GDPR.
+- [Consent and compliance - GDPR, DPDPA, HIPAA - Ezydrag](https://ezydrag.in/compliance.html): Agents should only contact people who said yes. Ezydrag maps where personal data lives, checks consent against GDPR, India's DPDP Act and HIPAA, and fixes gaps.
+- [Ezydrag Academy (beta) - Train your team by doing](https://ezydrag.in/academy.html): Short, hands-on lessons in simulated apps that prepare your team to work with AI agents, handle consent and review AI output with confidence.
+- [Feedback - How your input shapes our agents - Ezydrag](https://ezydrag.in/feedback.html): How Ezydrag listens: check-ins after each milestone, a quarterly review and a backlog where every comment becomes a fix, a new rule or an approved answer.
+- [The Ezydrag Report 2026 - Field notes on AI agents](https://ezydrag.in/report.html): What we learned running AI agents in production sales and marketing: context beats prompts, approval is a feature, token bills, and privacy deadlines.
+- [Field Notes - The Ezydrag blog on AI agents](https://ezydrag.in/blog.html): What Ezydrag's leaders learn running AI agents in production: n8n, MCP, harnesses, approvals, pricing and sales. Every claim sourced.
+
+## Field Notes (blog)
+
+- [n8n AI Assistant: why asking first matters - Ezydrag](https://ezydrag.in/blog-n8n-assistant-asks-first.html): n8n's AI Assistant builds, tests and fixes workflows from plain English, then asks before publishing. Why that confirm button matters more than the AI.
+- [Designing approval for AI agents - Ezydrag](https://ezydrag.in/blog-approval-is-not-a-button.html): How to design the approval moment for AI agents: what the reviewer sees, when they see it and what happens if nobody answers. From Ezydrag's design lead.
+- [MCP 2026-07-28 spec: what stateless means for you - Ezydrag](https://ezydrag.in/blog-mcp-goes-stateless.html): The Model Context Protocol's 28 July 2026 spec dropped sessions for stateless requests. What changed, why it matters for business agents, what to do next.
+- [Chaos engineering for AI agents: a founder's guide - Ezydrag](https://ezydrag.in/blog-break-your-agent-on-purpose.html): AgentChaos showed agent success can drop 50 points when APIs misbehave. How to chaos-test business agents before launch, from Ezydrag's leadership.
+- [AI agent costs: credits, meters and budgets - Ezydrag](https://ezydrag.in/blog-your-ai-bill-gets-a-meter.html): Atlassian meters Rovo credits from 3 December 2026 and n8n bills AI in credits. How founders should budget AI agents per outcome, from Ezydrag.
+- [Agent harness engineering, explained simply - Ezydrag](https://ezydrag.in/blog-agent-equals-model-plus-harness.html): What an agent harness is (tools, context, memory, checks) and why it decides reliability more than the model does. A plain-English guide.
+- [Workflow vs AI agent: when to use which - Ezydrag](https://ezydrag.in/blog-workflow-or-agent.html): n8n Agents made the choice explicit: fixed workflows or goal-driven agents. A simple test for founders, with four quick sales and marketing examples.
+- [AI SDR agents after Dreamforce 2026: what wins - Ezydrag](https://ezydrag.in/blog-every-crm-has-an-sdr-agent.html): After Dreamforce 2026, agents that nurture and qualify inbound leads come built into the CRM. What still sets a sales team apart, from Ezydrag's leadership.
+- [The labor illusion: designing trust for AI agents - Ezydrag](https://ezydrag.in/blog-labor-illusion-ai-agents.html): Why people value services more when they can see the work: the labor illusion, operational transparency and response-time limits, applied to AI agent design.
+
+## Optional
+
+- [All approved answers](https://ezydrag.in/llms-full.txt): 32 questions and answers, with sources

@@ -1,0 +1,59 @@
+<!--{"title": "The Ezydrag Report 2026", "desc": "", "nav": "", "crumbs": [["The 2026 Report", ""]]}-->
+<div class="readbar" aria-hidden="true"></div>
+<section class="hero-band">
+ <div class="wrap hero page-hero has-art">
+  <div style="display:flex;flex-direction:column;gap:var(--s3)">{{CRUMBS}}
+  <h1>Following up with AI: <span class="hl">field notes.</span></h1>
+  <p class="sub">What we learned running AI agents on real leads in Marketo and Salesforce. Free to read. No form.</p>
+  <p class="rmeta"><span>{{i:doc}} 6 chapters</span><span>{{i:cal}} <time datetime="2026-11-06">6 Nov 2026</time></span><span>~9 min read</span></p></div>
+  {{ART:graph}}
+ </div>
+</section>
+
+<div class="section"><div class="wrap report-grid">
+ <nav class="toc" aria-label="Contents">
+  <a href="#busywork">1 · The busywork tax</a><a href="#context">2 · Context beats prompts</a><a href="#approval">3 · Approval is a feature</a><a href="#tokens">4 · Tokens are the new cloud bill</a><a href="#privacy">5 · Privacy deadlines are product deadlines</a><a href="#next">6 · What we're building next</a><a href="#method">How we wrote this</a>
+ </nav>
+ <article class="prose" data-report>
+  <p class="lead" style="max-width:none">This isn't a survey. It's what a small team noticed while building and running agents for real sales and marketing teams, written down so you can skip a few of our mistakes.</p>
+
+  <span class="ch">CHAPTER 1</span>
+  <h2 id="busywork">The busywork tax</h2>
+  <p>Ask a marketing ops lead what fills their week and you rarely hear "strategy." You hear lists that arrive in five formats, emails stitched together block by block, last-minute QA, and a quarterly deck rebuilt from spreadsheets.</p>
+  <p>None of it is hard. All of it is careful, repetitive and easy to get slightly wrong. That combination is exactly where agents help, and exactly where a careless agent hurts.</p>
+
+  <span class="ch">CHAPTER 2</span>
+  <h2 id="context">Context beats prompts</h2>
+  <p>Our early agents had clever prompts and poor results. The model wasn't the problem. The agent simply couldn't see that the contact in Marketo was the same person with an open deal in Salesforce, or that someone promised her pricing in Tuesday's meeting.</p>
+  <blockquote class="pull">An agent is only as good as what it can see.</blockquote>
+  <p>So we stopped tuning prompts and started connecting things. Accounts, contacts, campaigns, deals, meeting notes and policies now live in one context graph. Agents ask the graph, get a small set of connected facts, and cite where each fact came from.</p>
+
+  <span class="ch">CHAPTER 3</span>
+  <h2 id="approval">Approval is a feature, not friction</h2>
+  <p>Fully autonomous agents make good demos and nervous customers. In practice, the teams we work with want the agent to do the work and a person to make the call.</p>
+  <p>So every send and every sync waits for a named person. That one click turned out to matter more than any model upgrade: it is why teams let agents near real customers at all. Each approval is logged, so "who sent this?" always has an answer.</p>
+
+  <span class="ch">CHAPTER 4</span>
+  <h2 id="tokens">Tokens are the new cloud bill</h2>
+  <p>Agents that paste whole exports into a prompt are slow and expensive, and the useful signal gets buried. Costs creep up quietly, one agent at a time.</p>
+  <p>Three habits keep the bill flat: send connected facts instead of exports, answer known questions from approved Q&amp;A with no model call at all, and let an optimization agent watch the others and suggest cuts. You can <a class="link" href="token-optimization.html">try the calculator</a> with your own numbers.</p>
+
+  <span class="ch">CHAPTER 5</span>
+  <h2 id="privacy">Privacy deadlines are product deadlines</h2>
+  <p>India's DPDP Rules were notified on 13 November 2025, with full compliance due by 13 May 2027. Many of our clients also serve EU users under GDPR.</p>
+  <p>The hard part isn't the law. It's knowing where personal data lives. The same graph that helps agents also answers that question, which is why we treat compliance as part of the product rather than a separate audit. More in our <a class="link" href="compliance.html">compliance guide</a>.</p>
+
+  <span class="ch">CHAPTER 6</span>
+  <h2 id="next">What we're building next</h2>
+  <p>Lead routing and scoring, weekly campaign insights that feed the QBR, inbound inquiry replies, and ongoing data hygiene. Each one starts the same way: one workflow, one owner, one clear measure of done.</p>
+  <p>If you're running RevOps on Marketo and Salesforce and any of this sounds familiar, we'd like to hear what your week looks like.</p>
+
+  <section class="method" aria-labelledby="method">
+   <h2 id="method" style="margin-top:0;font-size:var(--t1)">How we wrote this</h2>
+   <p>Edition 01 is written from our own delivery work, including the agents we run with RightWave. It contains no survey data and no third-party statistics. Where we cite a date or a rule, it's a public one. Future editions will add measured results once our clients approve publishing them.</p>
+  </section>
+ </article>
+</div></div>
+
+<section class="section tight" aria-label="Newsletter"><div class="wrap">{{NEWSLETTER}}</div></section>
+<section class="section tight"><div class="wrap"><div class="cta rv"><div><h2>Want to see it on your stack?</h2><div class="hero-ctas" style="justify-content:flex-start;margin-top:var(--s4)"><a class="btn btn-primary btn-lg" href="demo.html">Book a call</a><a class="link" href="customers.html">Read the RightWave case {{i:arrow}}</a></div></div>{{ART:agents}}</div></div></section>

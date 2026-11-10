@@ -1,0 +1,59 @@
+<!--{"title":"Book a call","desc":"","nav":"","crumbs":[["Book a call",""]]}-->
+<section class="hero-band">
+ <div class="wrap hero page-hero">
+  {{CRUMBS}}
+  <h1>Tell us the agent <span class="hl">you need.</span></h1>
+  <p class="sub">A 30-minute call with the people who would build it. Bring one task your team repeats every week.</p>
+  <div class="hero-ctas"><a class="btn btn-primary btn-lg" data-booking hidden href="#" target="_blank" rel="noopener">{{i:cal}}Pick a time</a><a class="link" href="#brief">Send a brief instead {{i:arrow}}</a></div>
+ </div>
+</section>
+<section class="section" id="brief"><div class="wrap split" style="align-items:start">
+ <div class="head" style="margin:0"><span class="eyebrow">What happens next</span><h2>From call to pilot.</h2>
+  <ol class="steps" style="grid-template-columns:1fr;margin-top:var(--s2)"><li><span class="n">01 · CALL</span><h3 class="h4">Show us the task today</h3></li><li><span class="n">02 · SCOPE</span><h3 class="h4">Pick one agent and one goal</h3></li><li><span class="n">03 · PILOT</span><h3 class="h4">We build and run it, with your approvals</h3></li></ol>
+  {{MAIL}}
+  <p class="note" id="security-pack">{{i:lock}} Need our security pack? Tick it in the brief.</p>
+ </div>
+ <div class="form-card" data-quote>
+  <div style="display:flex;justify-content:space-between;align-items:center"><span class="eyebrow">Project brief</span><span class="note" data-step-label aria-live="polite"></span></div>
+  <div class="progress" aria-hidden="true"><i></i><i></i><i></i></div>
+  <form novalidate>
+   <div class="qstep">
+    <fieldset class="opts multi" data-agents><legend class="field" style="grid-column:1/-1;margin-bottom:2px">Which agents are you thinking of?</legend>
+     <p class="note" style="grid-column:1/-1;margin:0 0 6px">Pick as many as you like.</p>
+     <label class="all"><input type="checkbox" data-all value="All of them">{{i:star}}All of them</label>
+     <label><input type="checkbox" name="area" value="Sales Nurture">{{i:target}}Lead nurture</label>
+     <label><input type="checkbox" name="area" value="Prospecting">{{i:search}}Prospecting</label>
+     <label><input type="checkbox" name="area" value="Speed-to-Lead">{{i:bolt}}Speed-to-lead</label>
+     <label><input type="checkbox" name="area" value="Email Creation / QA">{{i:mail}}Emails and QA</label>
+     <label><input type="checkbox" name="area" value="Reporting / Forecasting">{{i:report}}Reports and forecasts</label>
+     <label><input type="checkbox" name="area" value="Voice / support">{{i:chat}}Voice or support</label>
+     <label><input type="checkbox" name="area" value="CRM Cleanup">{{i:refresh}}CRM cleanup</label>
+     <label><input type="checkbox" name="area" value="Churn and Upsell">{{i:heart}}Churn and upsell</label>
+     <label><input type="checkbox" name="area" value="Governance">{{i:shield}}Governance</label>
+     <label class="own"><input type="checkbox" name="area" value="Our own idea" data-own>{{i:plus}}I've got one for you</label>
+     <label class="field own-box" for="q-own" hidden style="grid-column:1/-1">Go on, we're listening.<textarea id="q-own" name="own" rows="2" placeholder="One line is enough. We'll tell you honestly if an agent should do it."></textarea></label>
+     <p class="err" id="agents-err" role="alert" hidden style="grid-column:1/-1">Pick at least one, or tell us yours.</p>
+    </fieldset>
+    <label class="field" for="q-size" style="margin-top:14px">Team size<select id="q-size" name="size"><option>1–10</option><option>11–50</option><option>51–200</option><option>201+</option></select></label>
+    <fieldset style="border:0;padding:0;margin:14px 0 0"><legend class="field" style="margin-bottom:8px">Also send</legend><div class="chips"><label class="chip"><input type="checkbox" name="comp" value="Security pack"> Security pack</label><label class="chip"><input type="checkbox" name="comp" value="Pricing"> Pricing</label></div></fieldset>
+   </div>
+   <div class="qstep" hidden>
+    <label class="field" for="q-work">What task should an agent take off your team?<textarea id="q-work" name="workflow" rows="4" required minlength="10"></textarea></label>
+    <label class="field" for="q-tools" style="margin-top:12px">Stack<input id="q-tools" name="tools" placeholder="e.g. HubSpot, Clay, n8n, Slack" value=""></label>
+    <label class="field" for="q-time" style="margin-top:12px">Timeline<select id="q-time" name="timeline"><option>Exploring</option><option>This quarter</option><option>ASAP</option></select></label>
+   </div>
+   <div class="qstep" hidden>
+    <label class="field" for="q-name">Name<input id="q-name" name="name" required autocomplete="name"></label>
+    <label class="field" for="q-email" style="margin-top:12px">Work email<input id="q-email" name="email" type="email" required autocomplete="email"></label>
+    <label class="field" for="q-co" style="margin-top:12px">Company<input id="q-co" name="company" required autocomplete="organization"></label>
+   </div>
+   <div style="display:flex;justify-content:space-between;margin-top:20px"><button type="button" class="btn btn-ghost" data-back hidden>{{i:arrowl}}Back</button><button type="button" class="btn btn-ink" data-next style="margin-left:auto">Continue</button></div>
+  </form>
+  <div data-result hidden style="display:flex;flex-direction:column;gap:14px">
+   <h3 tabindex="-1">{{i:tick}} Your brief is ready.</h3><pre class="brief"></pre>
+   <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn btn-primary" data-mail href="#">{{i:mail}}Send by email</a><button class="btn btn-ghost" data-copybrief type="button">{{i:copy}}Copy</button><button class="btn btn-ghost" data-edit type="button">Edit</button></div>
+   <p class="note">Email app didn't open? Copy and send to hello@ezydrag.in.</p>
+  </div>
+ </div>
+</div></section>
+{{NONEXT}}

@@ -1,0 +1,94 @@
+/* Live pipeline scenarios. Sample data only.
+   Step kinds: ["st",n] stage · ["ln",txt,ms] · ["ok"|"warn"|"err"|"dim",txt,ms] · ["spin",label,ms] · ["bar",label,ms,records,[tokIn,tokOut]] */
+window.EZY_SCENARIOS = [
+{t:"Nightly lead capture",c:"RightWave · Sales Nurture Agent",cmd:"ezy nurture capture --client rightwave --src forms,events --to sfdc",lat:182,price:[3,15],steps:[
+ ["st",0],["spin","Authenticating Google Analytics",900],["spin","Authenticating Marketo + Salesforce",1100],
+ ["bar","Pulling GA audience  ",2200,9640],["bar","Reading event CSVs   ",1500,4210],
+ ["st",1],["dim","normalise: names · titles · countries · formats",400],["bar","Normalising          ",1800,0],
+ ["err","sfdc 429 Too Many Requests · backing off 2.0s",700],["spin","Retrying dedupe batch 3/7",2000],["ok","retry succeeded",300],
+ ["bar","Deduping vs Marketo/SFDC",2000,0],["warn","37 records missing consent → held for review",500],
+ ["st",2],["bar","Linking to accounts   ",1600,0,[48000,2100]],
+ ["st",3],["bar","Syncing to Salesforce ",1800,0],["gate","Marketing ops",2100],["ok","13,813 clean · 37 held · 2 merged duplicates logged",300]]},
+{t:"Q3 business review deck",c:"QBR Generator",cmd:"ezy qbr build --quarters 2026Q1..Q3 --template brand-v4",lat:940,price:[3,15],steps:[
+ ["st",0],["ln","found 4 workbooks · 23 sheets",500],["bar","Loading workbooks    ",1600,23],
+ ["st",1],["spin","Validating periods and KPI definitions",1400],["warn","Sheet 'Pipeline_Q2' has 3 blank rows · skipped",400],
+ ["bar","QoQ / YoY analysis   ",1900,0,[18000,900]],["dim","outliers: Campaign-sourced ARR +31%, churn spike in Aug",400],
+ ["st",2],["bar","Joining deals + campaigns",1500,0,[26000,1200]],
+ ["st",3],["bar","Writing narrative    ",2600,0,[34000,6200]],["bar","Rendering 18 slides  ",2000,18],
+ ["gate","Account lead",2100],["ok","deck approved → shared with the client",300]]},
+{t:"Sent-email QA sweep",c:"QA Agent · Marketo",cmd:"ezy qa sweep --since 24h --checklist marketo-v7",lat:120,price:[3,15],steps:[
+ ["st",0],["spin","Fetching sent emails from Marketo",1200],["ln","42 emails · 1,284 links · 5,906 tokens",400],
+ ["st",1],["bar","Checking links       ",2400,1284],["bar","Checking tokens + UTMs",1600,0],
+ ["err","2 broken links · email #18 'Q3 Webinar Reminder'",500],["err","empty {{lead.Company}} token · email #31",400],
+ ["st",2],["bar","Comparing to briefs  ",1600,0,[21000,1800]],
+ ["st",3],["spin","Auto-replying to owners",1300],["gate","Campaign manager",2100],["ok","3 issues routed · 39 emails passed",300]]},
+{t:"Lead nurture decisions",c:"Sales Nurture Agent",cmd:"ezy nurture decide --segment enterprise --cap 2/week",lat:310,price:[3,15],steps:[
+ ["st",0],["bar","Reading lead records  ",1800,2310],["bar","Reading engagement    ",1500,0],
+ ["st",1],["dim","frequency cap: 2/week · suppression list applied",400],
+ ["st",2],["bar","Pulling graph context ",1700,0,[62000,0]],
+ ["st",3],["bar","Choosing next steps   ",2200,0,[41000,9800]],["bar","Personalising emails  ",2000,0,[38000,22000]],
+ ["warn","12 new paths need human sign-off",400],["gate","Sales lead",2100],["ok","640 emails queued · 1,658 waiting · 12 for approval",300]]},
+{t:"DPDP data map scan",c:"Compliance Check Agent",cmd:"ezy compliance map --law dpdp,gdpr --systems all",lat:260,price:[3,15],steps:[
+ ["st",0],["spin","Discovering connected systems",1300],["ln","6 systems · 214 tables/objects",400],
+ ["bar","Scanning for personal data",2600,214],
+ ["st",1],["bar","Classifying fields    ",1800,0,[22000,1500]],["dim","email · phone · name · IP · location found",400],
+ ["st",2],["bar","Tracing lineage       ",1700,0],
+ ["err","HIGH: events_2025.csv has no consent field",500],["warn","MED: retention undefined for 'webinar_leads'",400],
+ ["st",3],["spin","Writing risk-ranked gap report",1500],["gate","Privacy owner",2100],["ok","report ready · 1 high · 3 medium · 6 low",300]]},
+{t:"CRM dedupe and hygiene",c:"Data Hygiene · Salesforce",cmd:"ezy hygiene run --object contact --fuzzy 0.92",lat:95,price:[3,15],steps:[
+ ["st",0],["bar","Exporting contacts    ",2200,54120],
+ ["st",1],["bar","Fuzzy matching        ",2600,0],["dim","threshold 0.92 · blocking on email domain",300],
+ ["warn","118 matches below confidence → review queue",400],
+ ["st",2],["bar","Linking to accounts   ",1500,0],
+ ["st",3],["spin","Proposing merges",1200],["gate","RevOps admin",2100],["ok","1,902 merges proposed · 0 applied without approval",300]]},
+{t:"Meeting actions to calendar",c:"AI PTA",cmd:"ezy pta extract --week 45 --source mom,calendar",lat:420,price:[3,15],steps:[
+ ["st",0],["spin","Reading 14 MoMs and invites",1400],
+ ["st",1],["bar","Extracting actions    ",2100,63,[29000,4100]],["dim","owners resolved from team list · 2 unassigned",400],
+ ["st",2],["bar","Linking to deals      ",1300,0],
+ ["st",3],["bar","Creating follow-ups   ",1600,0],["warn","2 actions without owner → sent to team lead",400],["gate","Team lead",2100],["ok","61 follow-ups on calendar · digest scheduled Fri 9:00",300]]},
+{t:"Token audit",c:"Optimization Agents",cmd:"ezy optimize audit --agents all --window 30d",lat:70,price:[3,15],steps:[
+ ["st",0],["bar","Loading 30d run logs  ",2000,18240],
+ ["st",1],["bar","Profiling prompts     ",1800,0,[9000,600]],
+ ["warn","QBR: 1.8k-token KPI dictionary resent every run",400],["warn","Nurture: retrieves 12 docs, uses 3",400],
+ ["st",2],["spin","Simulating fixes",1500],
+ ["st",3],["gate","Engineering lead",2100],["ok","projected −41% tokens · 4 fixes awaiting approval",300]]},
+{t:"FAQ bot index rebuild",c:"Ezydrag assistant",cmd:"ezy faq rebuild --approved ./qa.json --logs 7d",lat:12,price:[3,15],steps:[
+ ["st",0],["ln","23 approved Q&A · 140 logged questions",400],
+ ["st",1],["bar","Tokenising + stemming ",1400,163],
+ ["st",2],["bar","Clustering unmatched  ",1600,0],["dim","top gap: 'integration with HubSpot' ×11",400],
+ ["st",3],["spin","Rebuilding match index",1100],["ok","9 new Q&A drafted for review · 0 LLM calls",300]]},
+{t:"Webinar leads: score and route",c:"Sales Nurture Agent",cmd:"ezy nurture score --source webinar_nov --route sdr",lat:140,price:[3,15],steps:[
+ ["st",0],["bar","Reading file          ",1200,1140],
+ ["st",1],["bar","Normalising titles    ",1500,0],["warn","64 rows with free-text country → mapped by phone code",400],
+ ["bar","Consent + suppression ",1300,0],
+ ["st",2],["bar","Matching accounts     ",1500,0],
+ ["st",3],["bar","Scoring fit + intent  ",1300,0,[12000,800]],["gate","Marketing ops",2100],["ok","1,092 routed · 48 suppressed",300]]},
+{t:"Email build from brief",c:"Email Creation Agent",cmd:"ezy email build --brief q4-launch.md --template tpl-14",lat:520,price:[3,15],steps:[
+ ["st",0],["spin","Pulling template tpl-14 and 9 assets",1400],
+ ["st",1],["spin","Checking brand rules",1100],
+ ["st",2],["bar","Assembling modules    ",1600,9,[14000,0]],
+ ["st",3],["bar","Writing copy variants ",2000,0,[9000,3200]],["dim","3 subject lines · UTMs applied · tokens validated",400],
+ ["ok","draft saved in Marketo → awaiting approval",300]]},
+{t:"Health-data access review",c:"HIPAA safeguards",cmd:"ezy access review --scope phi --window 7d",lat:88,price:[3,15],steps:[
+ ["st",0],["bar","Loading access logs   ",2300,120400],
+ ["st",1],["bar","Applying role policies",1800,0],
+ ["err","4 reads exceed minimum-necessary rule",500],
+ ["st",2],["bar","Linking users to roles",1200,0],
+ ["st",3],["spin","Notifying privacy officer",1100],["ok","4 events flagged · audit trail exported",300]]},
+{t:"Voice call summaries",c:"With Nutaan AI",cmd:"ezy voice summarise --calls today --lang hi,bn,ta",lat:610,price:[3,15],steps:[
+ ["st",0],["bar","Fetching transcripts  ",1800,380],["dim","Hindi 212 · Bengali 104 · Tamil 64",400],
+ ["st",1],["bar","Cleaning transcripts  ",1500,0],
+ ["st",2],["bar","Attaching account context",1500,0,[42000,0]],
+ ["st",3],["bar","Summarising + sentiment",2200,0,[51000,14000]],["gate","Sales lead",2100],["ok","380 summaries · CRM updated · 17 callbacks booked",300]]},
+{t:"Academy course build",c:"Ezydrag Academy",cmd:"ezy academy build --course dpdp-for-teams",lat:350,price:[3,15],steps:[
+ ["st",0],["spin","Loading approved policy docs",1200],
+ ["st",1],["bar","Splitting into lessons",1500,4,[16000,1200]],
+ ["st",2],["bar","Linking to FAQ index  ",1200,0],
+ ["st",3],["bar","Generating quizzes    ",1900,0,[12000,3600]],["ok","4 lessons · 12 questions · tutor index ready",300]]},
+{t:"Weekly campaign insights",c:"Campaign Performance",cmd:"ezy insights weekly --join ga,marketo,sfdc",lat:230,price:[3,15],steps:[
+ ["st",0],["bar","GA sessions           ",1600,48210],["bar","Marketo programs      ",1200,0],
+ ["err","marketo api: 503 upstream · retrying in 3s",600],["spin","Retrying",2000],["ok","reconnected",300],
+ ["st",1],["bar","Aligning UTMs         ",1500,0],
+ ["st",2],["bar","Attributing pipeline  ",1700,0,[24000,0]],
+ ["st",3],["bar","Writing insights      ",1800,0,[19000,4200]],["gate","Marketing lead",2100],["ok","insights posted · feeds next QBR",300]]}
+];

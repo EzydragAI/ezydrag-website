@@ -1,54 +1,47 @@
-# EzyDrag website
+# Ezydrag website (2026 revamp, v2)
 
-Complete current static website source. No npm installation or build step is needed.
+Static multi-page site. No framework, no npm needed to run it.
 
-## Run locally
+## Run
+    node server/server.mjs
+Open http://localhost:8000. (Plain static serving still works: `python -m http.server 8000 --directory dist`, but Ask Ezydrag then has no LLM.)
 
-From the extracted ezydrag directory:
+## Ask Ezydrag (LLM chatbot)
+- Copy `.env.example` to `.env`, paste your `ANTHROPIC_API_KEY`, restart the server. The key stays on the server, never in the browser.
+- Order of answering: small talk and confident approved answers (0 tokens) → otherwise `/api/ask` retrieves the 4 best passages from `server/kb.json` (built from this site by `kb.py`) and asks a small model (Haiku, 160 max output tokens, ~800 tokens in) → anything not about Ezydrag is refused before any model call.
+- No web search or tools are enabled. Caps: 15 questions per IP per 10 min, 500 model calls per day (`ASK_IP_LIMIT`, `ASK_DAILY_CAP`).
+- After editing site copy, rebuild so `server/kb.json` refreshes (`python build.py`, or `python kb.py` alone). To deploy, host `server/server.mjs` anywhere Node runs (or port `ask()` to a serverless function) and set `askUrl` in `src/assets/config.js`.
+- `build.py` needs Python 3.12+.
 
-    python -m http.server 8000 --directory dist
+## Edit
+- `src/pages/*.html` — page content. First line is a JSON comment with title, description and active nav.
+- `src/assets/style.css` — design tokens (top of file) and all styles. Brand ink #2B2E3C, orange #FF9054.
+- `src/assets/app.js` — all interactive modules (mega-menu, pipeline, data graph, token calculator, FAQ bot, LMS demo, etc.).
+- `src/assets/faq-data.js` — approved Q&A for the FAQ page, the FAQ bot demo and Ask Ezydrag.
+- `src/assets/scenarios.js` — the 15 live-pipeline scenarios (add more in the same format).
+- `art.py` — logo-primitive illustrations (tile, orange plate, e, dot). `{{ART:name}}` and `{{FLOW}}` macros.
+- `src/assets/motion.js` — GSAP (cdnjs) linear motion: headline → CTA → flow → cards. Falls back to static if GSAP is blocked or reduced motion is on.
+- `src/assets/sim.js` — Ezydrag Academy app simulations.
+- `build.py` — header, mega-menu, footer, team, testimonials, compliance badges and map. Edit TEAM / QUOTES / NAV here.
 
-Open http://localhost:8000 in your browser. On Windows, use `py` instead of `python` if needed.
-You can also open dist/index.html directly, although a local server is recommended.
+Then rebuild:  `python build.py`  → writes `dist/`. Deploy the contents of `dist/`.
 
-## Files
+## Routes
+index · product (how it works + live pipeline) · data-graph · token-optimization (#faq-bot, #optimization-agents)
+agents (#qbr #nurture #qa #revops #operational) · academy (Ezydrag Academy, beta) · 404 · portfolio (#reviews) · industries (#geography + vertical tabs)
+compliance (#gdpr #hipaa #dpdp #gap-analysis #readiness #protect) · about (#team) · feedback · faq · contact
 
-- dist/index.html: content, navigation, quote builder, terminal UI, FAQs and EzyBiz.
-- dist/style.css: responsive styles, branding, motion and reduced-motion support.
-- dist/app.js: all interactions, terminal simulation, quote preparation and downloads.
-- dist/social-config.js: social profile URLs and WhatsApp configuration.
-- dist/ezydrag-nav.svg: supplied top navigation logo.
-- dist/brand.svg: original EzyDrag mark used by EzyBiz and the favicon.
-- dist/ezydrag-full.png: full footer wordmark.
-- .openai/hosting.json: current Sites project identity and static output directory.
+## Before going live
+- Confirm hello@ezydrag.in.
+- Figures marked "sample" / "illustrative" (pipeline record, graph answers, token calculator %, optimization audit) are demo data.
+- Compliance copy says "gap analysis / HIPAA-aware", not "certified". Have a data protection lawyer review.
+- Add real result numbers to portfolio cases when available.
 
-## Editing
+## Accessibility
+Run `python tools/axe.py index.html,...` (needs `npm i` in tools/ and Playwright). All pages pass axe WCAG 2.2 AA with 0 violations.
+Set your host's 404 page to `404.html`.
 
-Edit HTML for content, CSS for appearance and app.js for interactions.
-The terminal is a local simulation with sample data. It runs five sequential stages
-in about 25 seconds (20 timed beats at 1,250 ms each). Pause, resume, step, reset,
-replay and supported typed commands are included. It does not access live systems.
-
-## Social and WhatsApp links
-
-Fill in verified HTTPS profile URLs in dist/social-config.js. For WhatsApp, enter
-the international phone number including country code. Unconfigured links remain
-hidden. Do not include a leading zero from a domestic phone format.
-
-## Quote/contact behaviour
-
-The visitor reviews the brief and selects Send brief. This opens their email app
-with a populated draft; they complete the send there. There is no submission
-backend, stored lead database or automatic email delivery. Downloads create a local
-text file. hello@ezydrag.in is provisional and must be confirmed before public use.
-To change it, replace the address in both dist/index.html and dist/app.js.
-EzyBiz uses preset guidance, not a live AI model.
-
-## Hosting
-
-Deploy the contents of dist to any static web host. The existing Sites identity is
-preserved in .openai/hosting.json for updates to the current site. For a new independent
-Sites project, do not reuse the existing project_id. No credentials are included.
-
-All current site source and assets are included. Git history and temporary deployment
-archives are excluded. LinkedIn artwork was delivered separately.
+## v4 (wedge rework)
+See EZYDRAG_SITE_SPEC.md for positioning, sitemap, second-by-second home script and open decisions.
+New pages: customers, security, pricing, demo. Retired: industries, portfolio, contact (→ demo), context (→ product).
+Set the booking link in src/assets/config.js.

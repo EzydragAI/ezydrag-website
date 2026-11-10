@@ -1,0 +1,45 @@
+<!--{"title": "Token efficiency", "desc": "", "nav": "product", "crumbs": [["How it works", "product.html"], ["Token efficiency", ""]]}-->
+<section class="hero-band">
+ <div class="wrap hero page-hero has-art">
+  <div style="display:flex;flex-direction:column;gap:18px">{{CRUMBS}}
+  <h1>Follow up every lead. <span class="hl">Keep AI costs low.</span></h1>
+  <p class="sub">Three ways we keep the agent's running costs flat as your lead volume grows.</p>
+  <div class="hero-ctas" style="justify-content:flex-start"><a class="btn btn-primary btn-lg" href="#calculator">Estimate savings</a><a class="link" href="#faq-bot">Try the FAQ bot {{i:arrow}}</a></div></div>
+  {{ART:tokens}}
+ </div>
+</section>
+
+<section class="section mist" id="calculator"><div class="wrap">
+ <div class="head rv"><span class="eyebrow">{{i:token}} Calculator</span><h2>What each lever saves.</h2></div>
+ <div class="split" style="align-items:start" data-tokens>
+  <div class="form-card">
+   <div class="slider"><label for="t-req">Requests / month <output for="t-req"></output></label><input type="range" id="t-req" min="1000" max="500000" step="1000" value="50000"></div>
+   <div class="slider"><label for="t-in">Input tokens <output for="t-in"></output></label><input type="range" id="t-in" min="200" max="20000" step="100" value="3000"></div>
+   <div class="slider"><label for="t-out">Output tokens <output for="t-out"></output></label><input type="range" id="t-out" min="50" max="4000" step="50" value="500"></div>
+   <div class="grid g2"><div class="slider"><label for="t-pin">Input $/1M <output for="t-pin" data-pre="$"></output></label><input type="range" id="t-pin" min="0.1" max="15" step="0.1" value="3"></div><div class="slider"><label for="t-pout">Output $/1M <output for="t-pout" data-pre="$"></output></label><input type="range" id="t-pout" min="0.4" max="75" step="0.1" value="15"></div></div>
+   <label class="switch"><input type="checkbox" id="t-ctx" checked><span><b>Graph-pruned context</b><small>Input −45%</small></span></label>
+   <label class="switch"><input type="checkbox" id="t-cache" checked><span><b>Cache static prompts</b><small>Half the input at ~10% price</small></span></label>
+   <label class="switch"><input type="checkbox" id="t-faq" checked><span><b>FAQ bot first</b><small>22% of requests skip the LLM</small></span></label>
+   <label class="switch"><input type="checkbox" id="t-cap"><span><b>Capped output</b><small>Output −25%</small></span></label>
+  </div>
+  <div class="card box" style="gap:16px;position:sticky;top:90px" aria-live="polite">
+   <span class="note">Monthly LLM cost</span>
+   <div class="grid g2"><div><span class="note">Today</span><div class="big tnum" data-t-before></div></div><div><span class="note">With Ezydrag</span><div class="big tnum hl" data-t-after></div></div></div>
+   <div class="meter" aria-hidden="true"><i data-t-bar></i></div>
+   <div class="grid g2" style="border-top:1px solid var(--line);padding-top:14px"><div><span class="note">Saved</span><div class="tnum" style="font-weight:800;font-size:1.4rem" data-t-save></div></div><div><span class="note">Per year</span><div class="tnum" style="font-weight:800;font-size:1.4rem" data-t-year></div></div></div>
+   <p class="note">Illustrative. We measure your real usage first.</p>
+  </div>
+ </div>
+</div></section>
+
+<section class="section" id="faq-bot"><div class="wrap split" style="align-items:start">
+ <div class="head rv" style="margin:0"><span class="eyebrow">{{i:chat}} FAQ Bot</span><h2>The cheapest LLM call is none.</h2><p class="lead">Known questions get approved answers, with no AI model call.</p>
+  <div class="chips"><button class="chip" data-ask="How much does it cost?">Pricing?</button><button class="chip" data-ask="Where are your offices?">Offices?</button><button class="chip" data-ask="When is the DPDP deadline?">DPDP deadline?</button><button class="chip" data-ask="Write me a poem about llamas">A poem about llamas</button></div></div>
+ <div><div class="bot" data-bot><div class="log" aria-live="polite"><div class="bubble a">Ask anything. I'll show if an LLM was needed.</div></div><form><label class="sr" for="bot-q">Question</label><input id="bot-q" placeholder="Type a question" autocomplete="off"><button class="btn btn-primary btn-sm" type="submit">Ask</button></form></div><p class="note" data-bot-stat style="margin-top:10px">0/0 answered with no LLM call</p></div>
+</div></section>
+
+<section class="section mist" id="optimization-agents"><div class="wrap" data-optim>
+ <div class="row-head"><div class="head rv"><span class="eyebrow">{{i:gauge}} Optimization Agents</span><h2>Agents that check the agent.</h2><p class="lead">They find waste. You approve the fix.</p></div><button class="btn btn-ink" data-o-run>{{i:play}}Run audit</button></div>
+ <div class="table-wrap"><table><caption class="sr">Token use per agent</caption><thead><tr><th scope="col">Agent</th><th scope="col">Tokens / run</th><th scope="col">Finding</th><th scope="col">Fix</th></tr></thead><tbody></tbody></table></div>
+ <p style="margin-top:12px;font-weight:700" class="tnum" data-o-total aria-live="polite"></p><p class="note">Sample figures.</p>
+</div></section>

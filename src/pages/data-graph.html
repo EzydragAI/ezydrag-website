@@ -1,0 +1,33 @@
+<!--{"title": "Context graph", "desc": "", "nav": "product", "crumbs": [["How it works", "product.html"], ["Context graph", ""]]}-->
+<section class="hero-band">
+ <div class="wrap hero page-hero has-art">
+  <div style="display:flex;flex-direction:column;gap:18px">{{CRUMBS}}
+  <h1>How our agents <span class="hl">know your business.</span></h1>
+  <p class="sub">It links your CRM, Marketo, analytics and meeting notes, so every agent works with the full story.</p></div>
+  {{ART:graph}}
+ </div>
+</section>
+
+<section class="section"><div class="wrap">
+ <div class="head rv"><span class="eyebrow">Try it</span><h2>Ask it about a lead.</h2></div>
+ <div class="chips" style="margin-bottom:16px" role="group" aria-label="Sample questions">
+  <button class="chip" data-q="opened" aria-pressed="true">{{i:mail}}Who opened the QBR email?</button>
+  <button class="chip" data-q="promise" aria-pressed="false">{{i:cal}}What did we promise Acme?</button>
+  <button class="chip" data-q="pii" aria-pressed="false">{{i:lock}}Where is personal data?</button>
+  <button class="chip" data-q="qbr" aria-pressed="false">{{i:report}}Draft the Q3 review</button>
+ </div>
+ <div class="split wide">
+  <div class="graph-wrap" data-graph="opened" data-load="context graph"><svg viewBox="0 0 900 540" role="group" aria-label="Graph of systems and business entities. Select a node to see its connections."></svg></div>
+  <div class="card box" data-g-answer aria-live="polite"></div>
+ </div>
+</div></section>
+
+<section class="section mist"><div class="wrap">
+ <div class="head rv"><span class="eyebrow">Why a graph</span><h2>Why it matters for nurture.</h2></div>
+ <div class="grid g4">
+  <div class="card rv"><span class="ico">{{i:search}}</span><h3 class="h4">Lineage</h3><p>Every answer cites its source.</p></div>
+  <div class="card rv"><span class="ico">{{i:token}}</span><h3 class="h4">Smaller prompts</h3><p>Facts, not exports.</p></div>
+  <div class="card rv"><span class="ico">{{i:shield}}</span><h3 class="h4">A data map</h3><p>Compliance starts here.</p></div>
+  <div class="card rv"><span class="ico">{{i:loop}}</span><h3 class="h4">Reuse</h3><p>Every agent plugs in.</p></div>
+ </div>
+</div></section>

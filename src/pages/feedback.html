@@ -1,0 +1,48 @@
+<!--{"title": "Feedback", "desc": "", "nav": "company", "crumbs": [["About", "about.html"], ["Feedback", ""]]}-->
+<section class="hero-band">
+ <div class="wrap hero page-hero">
+  {{CRUMBS}}
+  <h1>Your feedback <span class="hl">shapes our agents.</span></h1>
+  <p class="sub">How we ask, and what happens to every answer.</p>
+ </div>
+</section>
+
+<section class="section" aria-label="When we ask for feedback"><div class="wrap split">
+ <div class="loop" data-loop>
+  <script type="application/json">[
+   {"t":"Milestone check-in","when":"After each milestone","d":"Five minutes. What works, what doesn't."},
+   {"t":"Quarterly review","when":"Every quarter","d":"Outcomes, token use and the next workflow."},
+   {"t":"Testimonial","when":"When results show","d":"With your permission, for our portfolio."},
+   {"t":"Into the backlog","when":"Always","d":"Every comment becomes a fix or a new answer."}
+  ]</script>
+  <svg viewBox="0 0 440 440" role="group" aria-label="Feedback loop, four steps">
+   <circle class="track" cx="220" cy="220" r="150" aria-hidden="true"/>
+   <g class="lnode" tabindex="0" role="button" aria-label="Milestone check-in" aria-pressed="false"><circle cx="220" cy="70" r="48"/><text x="220" y="66">Milestone</text><text x="220" y="84">check-in</text></g>
+   <g class="lnode" tabindex="0" role="button" aria-label="Quarterly review" aria-pressed="false"><circle cx="370" cy="220" r="48"/><text x="370" y="216">Quarterly</text><text x="370" y="234">review</text></g>
+   <g class="lnode" tabindex="0" role="button" aria-label="Testimonial" aria-pressed="false"><circle cx="220" cy="370" r="48"/><text x="220" y="375">Testimonial</text></g>
+   <g class="lnode" tabindex="0" role="button" aria-label="Into the backlog" aria-pressed="false"><circle cx="70" cy="220" r="48"/><text x="70" y="216">Into the</text><text x="70" y="234">backlog</text></g>
+   <image href="assets/ezydrag-nav.svg" x="180" y="180" width="80" height="80" aria-hidden="true"/>
+  </svg>
+ </div>
+ <div style="display:flex;flex-direction:column;gap:14px"><div class="card box" data-l-out aria-live="polite" style="min-height:170px"></div><button class="btn btn-ghost btn-sm" data-loop-pause aria-pressed="false" style="align-self:flex-start">{{i:pause}}Pause</button></div>
+</div></section>
+
+<section class="section mist"><div class="wrap">
+ <div class="head rv"><span class="eyebrow">{{i:loop}} Where it goes</span><h2>Every signal has a home.</h2></div>
+ <div class="grid g4">
+  <div class="card rv"><span class="ico">{{i:alert}}</span><h3 class="h4">Agent error</h3><p>→ QA checkpoints</p></div>
+  <div class="card rv"><span class="ico">{{i:chat}}</span><h3 class="h4">Unanswered question</h3><p>→ New approved answer</p></div>
+  <div class="card rv"><span class="ico">{{i:token}}</span><h3 class="h4">Cost concern</h3><p>→ Token audit</p></div>
+  <div class="card rv"><span class="ico">{{i:star}}</span><h3 class="h4">Great result</h3><p>→ Testimonial, with permission</p></div>
+ </div>
+</div></section>
+
+<section class="section"><div class="wrap split" style="align-items:start">
+ <div class="head rv" style="margin:0"><span class="eyebrow">Check-in</span><h2>Two questions.</h2><p class="lead">This is what clients see. Nothing is sent from here.</p></div>
+ <div class="form-card" data-nps>
+  <p id="nps-q" style="font-weight:700">How likely are you to recommend Ezydrag?</p>
+  <div class="nps" role="group" aria-labelledby="nps-q"></div>
+  <p class="muted" data-nps-out aria-live="polite"></p>
+  <form style="display:flex;flex-direction:column;gap:12px"><label class="field" for="fb-text">What should we change first?<textarea id="fb-text" rows="3"></textarea></label><button class="btn btn-ink" type="submit" style="align-self:flex-start">Submit</button></form>
+ </div>
+</div></section>

@@ -1,0 +1,16 @@
+<!--{"title":"FAQ","desc":"","nav":"faq","crumbs":[["FAQ",""]]}-->
+<section class="hero-band">
+ <div class="wrap hero page-hero">
+  {{CRUMBS}}
+  <h1>Questions? <span class="hl">Answered.</span></h1>
+  <p class="sub">What we build, how it works, what it costs and what the research says. Every market figure links to its source.</p>
+  <form class="fq-search" role="search" onsubmit="return false"><label class="sr" for="faq-search">Search the FAQ</label>{{i:search}}<input id="faq-search" type="search" placeholder="Search: data, approvals, pricing, chaos testing…" autocomplete="off"><span class="note tnum" data-faq-count aria-live="polite"></span></form>
+ </div>
+</section>
+<section class="section" data-faqpage aria-label="All questions and answers"><div class="wrap">
+ {{FAQFULL}}
+</div></section>
+<section class="section mist"><div class="wrap split" style="align-items:start">
+ <div class="head rv" style="margin:0"><span class="eyebrow">{{i:chat}} Still stuck?</span><h2>Ask in your own words.</h2><p class="lead">Ask Ezydrag answers from the approved answers above. Anything new goes to a person.</p>{{MAIL}}</div>
+ <div><div class="bot" data-bot><div class="log" aria-live="polite"><div class="bubble a">Type a question.</div></div><form><label class="sr" for="faq-bot-q">Question</label><input id="faq-bot-q" placeholder="Type a question" autocomplete="off"><button class="btn btn-primary btn-sm" type="submit">Ask</button></form></div><p class="note" data-bot-stat style="margin-top:10px"></p></div>
+</div></section>

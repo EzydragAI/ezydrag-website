@@ -27,18 +27,22 @@ const avg = docs.reduce((n, d) => n + d.t.length, 0) / docs.length;
 const idf = (w) => Math.log(1 + (docs.length - (df.get(w) || 0) + 0.5) / ((df.get(w) || 0) + 0.5));
 
 function retrieve(q) {
-  const qt = [...new Set(toks(expand(q)))];
-  if (!qt.length) return { top: [], score: 0 };
-  const maxIdf = idf("zzzz"), wt = (w) => (df.has(w) ? idf(w) : maxIdf), total = qt.reduce((n, w) => n + wt(w), 0);
+  // One group per word the visitor typed; a synonym that matches counts as that word being covered.
+  const words = [...new Set(q.toLowerCase().replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter((w) => w && !STOP.has(w)))];
+  const groups = words.map((w) => [...new Set(toks(SYN[w] ? w + " " + SYN[w] : w))]).filter((g) => g.length);
+  if (!groups.length) return { top: [], score: 0 };
+  const qt = [...new Set(groups.flat())];
+  const maxIdf = idf("zzzz"), wt = (w) => (df.has(w) ? idf(w) : maxIdf);
+  const gw = (g) => Math.max(...g.map(wt)), total = groups.reduce((n, g) => n + gw(g), 0);
   const scored = docs.map((d) => {
     const tf = new Map();
     d.t.forEach((w) => tf.set(w, (tf.get(w) || 0) + 1));
     let s = 0, got = 0;
     for (const w of qt) {
       const f = tf.get(w) || 0;
-      if (f) got += wt(w);
       if (f) s += idf(w) * ((f * 2.2) / (f + 1.2 * (0.25 + 0.75 * (d.t.length / avg))));
     }
+    for (const g of groups) { const hit = g.filter((w) => tf.has(w)); if (hit.length) got += Math.max(...hit.map(wt)); }
     return { c: d.c, s, cover: got / total };
   }).sort((a, b) => b.s - a.s);
   const best = scored.reduce((m, x) => Math.max(m, x.cover), 0); // coverage by any single passage
@@ -92,12 +96,11 @@ export async function ask(body, ip) {
     });
   } catch (e) { return { status: 200, json: { error: "upstream", detail: "network:" + String(e && e.name) } }; }
   if (!res.ok) {
-    let type = "", msg = ""; const body = await res.text();
-    try { const e = JSON.parse(body).error; type = e?.type || ""; msg = String(e?.message || "").slice(0, 200); } catch {}
+    let type = ""; const body = await res.text();
+    try { const e = JSON.parse(body).error; type = e?.type || ""; } catch {}
     console.error("Anthropic", res.status, body.slice(0, 200));
     // status 200 so proxies/CDNs don't mask the body; the browser falls back to approved answers on any "error"
-    const shape = res.status === 401 ? { len: KEY.length, prefixOk: KEY.startsWith("sk-ant-"), hasSpaceOrQuote: /[\s"'`]/.test(KEY) } : undefined; // no secret revealed
-    return { status: 200, json: { error: "upstream", detail: res.status + " " + type, msg: res.status === 400 || res.status === 404 ? msg : undefined, key: shape } };
+    return { status: 200, json: { error: "upstream", detail: res.status + " " + type } };
   }
   const j = await res.json();
   let a = (j.content || []).filter((b) => b.type === "text").map((b) => b.text).join("").trim();

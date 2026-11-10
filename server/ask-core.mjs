@@ -74,7 +74,7 @@ export async function ask(body, ip) {
   if (r.score < MIN_SCORE) return { status: 200, json: { a: NO, miss: true, tokens: 0 } };
   const key = prevQ ? "" : norm(q);
   if (key && cache.has(key)) return { status: 200, json: { a: cache.get(key), cached: true, tokens: 0 } };
-  if (!KEY) return { status: 503, json: { error: "no_key" } };
+  if (!KEY) return { status: 200, json: { error: "no_key" } };
   if (new Date().toDateString() !== day) { day = new Date().toDateString(); dayCalls = 0; }
   if (dayCalls >= DAILY_CAP) return { status: 200, json: { a: "I'm resting for today. Please email " + EMAIL + " and a person will reply.", capped: true } };
   dayCalls++;
@@ -90,8 +90,14 @@ export async function ask(body, ip) {
       body: JSON.stringify({ model: MODEL, max_tokens: MAX_OUT, temperature: 0.2, system: SYSTEM, messages }),
       signal: AbortSignal.timeout(15000),
     });
-  } catch { return { status: 502, json: { error: "upstream" } }; }
-  if (!res.ok) { console.error("Anthropic", res.status, (await res.text()).slice(0, 200)); return { status: 502, json: { error: "upstream" } }; }
+  } catch (e) { return { status: 200, json: { error: "upstream", detail: "network:" + String(e && e.name) } }; }
+  if (!res.ok) {
+    let type = ""; const body = await res.text();
+    try { type = JSON.parse(body).error?.type || ""; } catch {}
+    console.error("Anthropic", res.status, body.slice(0, 200));
+    // status 200 so proxies/CDNs don't mask the body; the browser falls back to approved answers on any "error"
+    return { status: 200, json: { error: "upstream", detail: res.status + " " + type } };
+  }
   const j = await res.json();
   let a = (j.content || []).filter((b) => b.type === "text").map((b) => b.text).join("").trim();
   const tokens = (j.usage?.input_tokens || 0) + (j.usage?.output_tokens || 0);

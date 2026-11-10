@@ -4,7 +4,7 @@
 const KEY = process.env.ANTHROPIC_API_KEY || "";
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-5-5"; // cheapest tier is plenty for grounded Q&A
 const MAX_Q = 300;            // characters accepted per question
-const MAX_OUT = 160;          // output tokens: answers are 2-3 sentences
+const MAX_OUT = 220;          // output tokens: answers are 2-3 sentences
 const TOP_K = 4;              // chunks sent to the model
 const MIN_SCORE = 1.6;        // below this the question isn't about us: no LLM call
 const MIN_COVER = 0.45;       // share of the question's (rare-word weighted) terms the best passage must contain
@@ -92,7 +92,7 @@ export async function ask(body, ip) {
     res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: { "content-type": "application/json", "x-api-key": KEY, "anthropic-version": "2023-06-01" },
-      body: JSON.stringify({ model: MODEL, max_tokens: MAX_OUT, system: SYSTEM, messages }),
+      body: JSON.stringify({ model: MODEL, max_tokens: MAX_OUT, thinking: { type: "disabled" }, system: SYSTEM, messages }),
       signal: AbortSignal.timeout(15000),
     });
   } catch (e) { return { status: 200, json: { error: "upstream", detail: "network:" + String(e && e.name) } }; }

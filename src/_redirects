@@ -1,3 +1,3 @@
 /api/ask  /.netlify/functions/ask  200!
-https://ezydrag.in/*     https://ezydrag.com/:splat    301!
-https://www.ezydrag.in/* https://ezydrag.com/:splat    301!
+https://ezydrag.com/*     https://ezydrag.com/:splat    301!
+https://www.ezydrag.com/* https://ezydrag.com/:splat    301!

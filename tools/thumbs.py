@@ -130,7 +130,7 @@ def page(x):
 <body><div class="c" style="background:{x['bg']};color:{x['fg']}">
 <div class="top"><span class="brand">{mark}Field Notes</span>{chip(x['kicker'], dark).replace('<i></i>', '<i style="background:#2b2e3c"></i>' if x['bg'] == OR else '<i></i>')}</div>
 <h1>{x['line']}</h1>
-<div class="foot">ezydrag.in</div>
+<div class="foot">ezydrag.com</div>
 <div class="art">{x['art']}</div>
 </div></body></html>"""
 

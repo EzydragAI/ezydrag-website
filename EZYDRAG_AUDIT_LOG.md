@@ -79,7 +79,7 @@ Fetched 6 Nov 2026: Linear, OpenAI, Anthropic, SentinelOne, Vercel, Stripe, Ramp
 
 ### Still to do (needs you)
 
-- [ ] Confirm the production domain. Currently `SITE_URL = "https://ezydrag.in"`.
+- [ ] Confirm the production domain. Currently `SITE_URL = "https://ezydrag.com"`.
 - [ ] Submit the sitemap in Google Search Console and Bing Webmaster Tools.
 - [ ] Choose analytics. Recommendation: a cookieless tool (Plausible or Fathom), which keeps the "no tracking pixels" promise true. Not added yet.
 - [ ] Keyword plan for the next three articles. Candidates: "Marketo email QA checklist", "Salesforce list hygiene", "DPDP compliance for marketing teams".
@@ -405,7 +405,7 @@ All hero text is readable in about 0.7 seconds. There is no curtain, loader or d
   - Submitting stops all prompts on future visits.
   - It never steals focus and closes with Esc.
 - **Closing CTA:** an inline email form next to "Book a call".
-- **Backend:** set `leadUrl` in `config.js` (HubSpot, Marketo form handler, Formspree). Without one, a ready-to-send email to hello@ezydrag.in opens. Tested: email validation, the POST body, and that prompts stay off after a submission.
+- **Backend:** set `leadUrl` in `config.js` (HubSpot, Marketo form handler, Formspree). Without one, a ready-to-send email to hello@ezydrag.com opens. Tested: email validation, the POST body, and that prompts stay off after a submission.
 
 ### One baseline
 - **Corner radius:** every value in style.css now uses one scale: `--r1` 6px (tags), `--r2` 12px (buttons, inputs, icon tiles), `--r3` 20px (cards, panels), `--r4` 28px (CTA blocks), plus pills and circles. That replaced 17 different radius values. 12px is the logo's own corner on a 48px tile (¼ of the face).
@@ -584,7 +584,7 @@ The PDF's internal "biggest gaps" note was not published.
 
 ### Not used
 - The PDF's "results within 30 to 60 days" line. It's a promise we can't back with data yet.
-- The PDF's domain, www.ezydrag.com. The site still uses ezydrag.in. Confirm which domain is correct.
+- The PDF's domain, www.ezydrag.com. The site still uses ezydrag.com. Confirm which domain is correct.
 
 ---
 
@@ -915,7 +915,7 @@ Top bar: Agents · How we work · Customers · Pricing · Trust · Field Notes �
 ## 45 · Customers: case studies on request, review arrows (2026-11-11)
 
 - RightWave is described correctly as a **marketing automation company** (not a marketing agency) on Customers, in its SEO description and in the Pricing FAQ ("Do you work with marketing automation companies?").
-- The open before/after table is gone. New "Case studies: The full story, on request." section: RightWave marked Ready with a "Request the case study" email box (opens a pre-filled email to hello@ezydrag.in, or posts to leadUrl when set); Cerkle, Eternup and Nutaan AI shown as "In progress: we're writing this one now", each with one honest line.
+- The open before/after table is gone. New "Case studies: The full story, on request." section: RightWave marked Ready with a "Request the case study" email box (opens a pre-filled email to hello@ezydrag.com, or posts to leadUrl when set); Cerkle, Eternup and Nutaan AI shown as "In progress: we're writing this one now", each with one honest line.
 - "What leaders say": play/pause removed; previous and next arrows either side of the dots, arrow keys work, no autoplay.
 - Nutaan AI title spelled out: Chief Product Officer.
 - Not added: testimonials attributed to Amazon or IBM (needs a real, approved quote).

@@ -32,7 +32,7 @@ agents (#qbr #nurture #qa #revops #operational) · academy (Ezydrag Academy, bet
 compliance (#gdpr #hipaa #dpdp #gap-analysis #readiness #protect) · about (#team) · feedback · faq · contact
 
 ## Before going live
-- Confirm hello@ezydrag.in.
+- Confirm hello@ezydrag.com.
 - Figures marked "sample" / "illustrative" (pipeline record, graph answers, token calculator %, optimization audit) are demo data.
 - Compliance copy says "gap analysis / HIPAA-aware", not "certified". Have a data protection lawyer review.
 - Add real result numbers to portfolio cases when available.

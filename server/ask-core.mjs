@@ -11,7 +11,7 @@ const MIN_SCORE = 1.6;        // below this the question isn't about us: no LLM 
 const MIN_COVER = 0.45;       // share of the question's (rare-word weighted) terms the best passage must contain
 const IP_LIMIT = +process.env.ASK_IP_LIMIT || 15;      // questions per IP per 10 min
 const DAILY_CAP = +process.env.ASK_DAILY_CAP || 500;   // total LLM calls per day: a hard spend ceiling
-const EMAIL = "hello@ezydrag.in";
+const EMAIL = "hello@ezydrag.com";
 
 import KB from "./kb.mjs";
 

@@ -169,7 +169,7 @@ Until these arrive, the site uses only facts already stated in your materials, a
 2. **Pricing:** publish numbers, a "from" price, or "on request"? v4 shows tiers with "Get a quote".
 3. **SOC 2:** current status and target date. v4 says "status on request" and offers a security pack.
 4. **Booking link:** add a Calendly or HubSpot URL to `src/assets/config.js` (`bookingUrl`).
-5. **Email:** confirm `hello@ezydrag.in`.
+5. **Email:** confirm `hello@ezydrag.com`.
 6. **Lead capture:** connect the demo form to a CRM or form backend (currently opens an email draft).
 
 ---

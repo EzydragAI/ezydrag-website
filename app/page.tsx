@@ -360,8 +360,8 @@ export default function HomePage() {
                       Send us a <em>mail</em>.
                     </h2>
 
-                    <a href="mailto:admin@ezydrag.in" className="cta cta--big">
-                      admin@ezydrag.in
+                    <a href="mailto:admin@ezydrag.com" className="cta cta--big">
+                      admin@ezydrag.com
                     </a>
 
                     <div className="contact-form-wrap">

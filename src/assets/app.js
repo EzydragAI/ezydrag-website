@@ -177,11 +177,11 @@ const pick=a=>a[Math.floor(Math.random()*a.length)];
 const TALK=[
  [/^(hi|hey|hello|yo|hiya|namaste|sup|good (morning|afternoon|evening))\b/i,()=>pick(["Hey! I'm Ask Ezydrag. I answer questions about our AI agents, your data and how we work. What's on your mind?","Hello 👋 Ask me what we build, whether your data is ready for AI, or how we test agents.","Hi there. Fair warning: I only say things a human on our team has approved. Ask away."])],
  [/\b(thanks|thank you|thx|ty|cheers|great|awesome|perfect|nice)\b/i,()=>pick(["Anytime. Anything else?","Glad that helped. I'm here if you think of something else.","Happy to help. Want to see the agents in action? Book a 30-minute call."])],
- [/\b(bye|goodbye|see you|later|cya)\b/i,()=>"See you. If something comes up, hello@ezydrag.in reaches a real person."],
+ [/\b(bye|goodbye|see you|later|cya)\b/i,()=>"See you. If something comes up, hello@ezydrag.com reaches a real person."],
  [/\b(are you (a )?(human|bot|real|ai|robot|gpt|chatgpt|llm)|who are you|what are you)\b/i,()=>"I'm a small bot, and proudly not a big model. I match your question against answers our team has approved, so I can't make things up. When I don't know, a person takes over."],
  [/\b(joke|funny|make me laugh)\b/i,()=>pick(["Why did the AI agent cross the road? It didn't. It was waiting for human approval. (We built it that way.)","An AI agent walks into a bar. It asks for approval before ordering. The bartender says: finally, one with manners.","How many AI agents does it take to change a lightbulb? One to do it, one to check it, and a person to approve the new bulb."])],
  [/\b(weather|recipe|cricket|football|movie|song|stock price|bitcoin|crypto|horoscope|girlfriend|boyfriend|date me|love you)\b/i,()=>pick(["Ha, that's outside my lane. I stick to AI agents, data and how Ezydrag works. Try: “Is our data ready for AI?”","I'd love to help, but I only know what our team approved, and that's all agents and data. Ask me about those?"])],
- [/\b(stupid|useless|dumb|sucks|bad bot)\b/i,()=>"Fair. I'm deliberately small: I only give approved answers. Tell me what you were after and I'll pass it to a person at hello@ezydrag.in."],
+ [/\b(stupid|useless|dumb|sucks|bad bot)\b/i,()=>"Fair. I'm deliberately small: I only give approved answers. Tell me what you were after and I'll pass it to a person at hello@ezydrag.com."],
  [/\b(help|what can (i|you) ask|what do you know|menu|options)\b/i,()=>"I can answer about 30 questions on what we build, data and metadata, testing and reliability, approvals, pricing and getting started. Pick one below or type your own."],
 ];
 const smallTalk=t=>{const s=t.trim();if(s.split(/\s+/).length>14)return null;for(const[re,f]of TALK)if(re.test(s))return f();return null};
@@ -211,7 +211,7 @@ async function botReply(log,text,meta){const add=(cls,html)=>{const d=document.c
     log.scrollTop=log.scrollHeight;const rel=(window.EZY_FAQ||[]).filter(d=>d.c===m.item.c&&d.q!==m.item.q).slice(0,2).map(d=>d.q);chips(log,rel,ask);return m}
   const a=add("a bad","<p></p>");
   await typeOut($("p",a),m.near.length?"I don't have an approved answer for that exact question. Did you mean one of these?":"Good question, and not one I've been approved to answer. A person on our team can.");
-  const mail=`mailto:hello@ezydrag.in?subject=${encodeURIComponent("Question from the website")}&body=${encodeURIComponent(text)}`;
+  const mail=`mailto:hello@ezydrag.com?subject=${encodeURIComponent("Question from the website")}&body=${encodeURIComponent(text)}`;
   a.insertAdjacentHTML("beforeend",`<p class="bubble-act"><a href="${mail}">${ico("mail")} Send it to a person</a></p>`+(meta?`<div class="meta"><span class="miss">${ico("alert")} No match</span><span>≈ ${fmt((text.length+4200)/4)} tokens if sent to an LLM</span></div>`:""));log.scrollTop=log.scrollHeight;
   chips(log,m.near.map(x=>x.item.q),ask);return m}
 $$("[data-bot]").forEach(root=>{const log=$(".log",root),form=$("form",root),inp=$("input",root),scope=root.closest(".wrap")||document,stat=$("[data-bot-stat]",scope);let hits=0,total=0;
@@ -234,7 +234,7 @@ $$("[data-bot]").forEach(root=>{const log=$(".log",root),form=$("form",root),inp
     try{const res=await fetch(endpoint,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({q,pq,pa}),signal:AbortSignal.timeout(20000)});if(res.ok||res.status===429)r=await res.json()}catch(e){}
     if(!r||r.error||!r.a){ty.remove();log.lastElementChild.remove();return botReply(log,q,false)} /* no key / offline: approved answers still work */
     ty.innerHTML="<p></p>";await typeOut($("p",ty),r.a);
-    if(r.miss||r.limited||r.capped){ty.classList.add("bad");const mail=`mailto:hello@ezydrag.in?subject=${encodeURIComponent("Question from the website")}&body=${encodeURIComponent(q)}`;
+    if(r.miss||r.limited||r.capped){ty.classList.add("bad");const mail=`mailto:hello@ezydrag.com?subject=${encodeURIComponent("Question from the website")}&body=${encodeURIComponent(q)}`;
       ty.insertAdjacentHTML("beforeend",`<p class="bubble-act"><a href="${mail}">${ico("mail")} Send it to a person</a></p>`);
       chips(log,["What do you build?","How does pricing work?","Is our data safe?"],ask)}
     else{pq=q;pa=r.a;if(r.more&&r.more!=="index.html")ty.insertAdjacentHTML("beforeend",`<p class="bubble-act"><a href="${esc(r.more)}">Read more on this page →</a></p>`);log.scrollTop=log.scrollHeight}
@@ -315,13 +315,13 @@ $$("[data-quote]").forEach(root=>{const steps=$$(".qstep",root),next=$("[data-ne
   const show=()=>{steps.forEach((x,i)=>x.hidden=i!==s);bar.forEach((b,i)=>b.classList.toggle("on",i<=s));back.hidden=s===0;next.innerHTML=s===steps.length-1?`Build my brief ${ico("arrow")}`:`Continue ${ico("arrow")}`;if(lab)lab.textContent=`Step ${s+1} of ${steps.length}`};
   next.addEventListener("click",()=>{if(!validate(steps[s]))return;if(!agentsOk(steps[s]))return;if(s<steps.length-1){s++;show();const f=$("input,textarea,select",steps[s]);f&&f.focus();return}
     const d=new FormData(form);const brief=`Ezydrag project brief\n\nAgents: ${d.getAll("area").join(", ")||"—"}${d.get("own")?`\nTheir idea: ${d.get("own")}`:""}\nTeam: ${d.get("size")}\nAlso send: ${d.getAll("comp").join(", ")||"—"}\nToday: ${d.get("workflow")}\nTools: ${d.get("tools")||"—"}\nTimeline: ${d.get("timeline")}\n\n${d.get("name")} · ${d.get("email")} · ${d.get("company")}`;
-    $("pre",res).textContent=brief;$("[data-mail]",res).href="mailto:hello@ezydrag.in?subject="+encodeURIComponent("Brief: "+d.get("company"))+"&body="+encodeURIComponent(brief);
+    $("pre",res).textContent=brief;$("[data-mail]",res).href="mailto:hello@ezydrag.com?subject="+encodeURIComponent("Brief: "+d.get("company"))+"&body="+encodeURIComponent(brief);
     $("[data-copybrief]",res).onclick=()=>navigator.clipboard?navigator.clipboard.writeText(brief).then(()=>toast("Brief copied"),()=>toast("Select the brief to copy it")):toast("Select the brief to copy it");
     form.hidden=true;res.hidden=false;$("h3",res).focus()});
   back.addEventListener("click",()=>{s--;show()});$("[data-edit]",root).addEventListener("click",()=>{form.hidden=false;res.hidden=true});form.addEventListener("submit",e=>e.preventDefault());show()});
 $$("[data-beta]").forEach(f=>f.addEventListener("submit",e=>{e.preventDefault();if(!validate(f))return;const n=$("#b-name",f).value,m=$("#b-email",f).value,t=$("#b-topic",f).value;
-  $("[data-beta-out]",f).innerHTML=`${ico("tick")} Thanks, ${esc(n)}. If no email draft opened, write to <code>hello@ezydrag.in</code>.`;
-  location.href="mailto:hello@ezydrag.in?subject="+encodeURIComponent("Academy beta: "+n)+"&body="+encodeURIComponent(`Name: ${n}\nEmail: ${m}\nTopic: ${t}`)}));
+  $("[data-beta-out]",f).innerHTML=`${ico("tick")} Thanks, ${esc(n)}. If no email draft opened, write to <code>hello@ezydrag.com</code>.`;
+  location.href="mailto:hello@ezydrag.com?subject="+encodeURIComponent("Academy beta: "+n)+"&body="+encodeURIComponent(`Name: ${n}\nEmail: ${m}\nTopic: ${t}`)}));
 
 /* ---------- FAQ page ---------- */
 $$("[data-faqpage]").forEach(root=>{const q=$("#faq-search"),count=$("[data-faq-count]"),items=$$("details[data-k]",root),secs=$$(".fq-sec",root),empty=$("[data-faq-empty]",root),links=$$("[data-faq-jump]",root);
@@ -346,8 +346,8 @@ $$("[data-faq-preview]").forEach(el=>{const want=el.dataset.faqPreview.split("|"
 $$("[data-newsletter]").forEach(f=>f.addEventListener("submit",e=>{e.preventDefault();if(!validate(f))return;const cfg=window.EZY_CONFIG||{},em=$("input[type=email]",f).value.trim(),out=$("[data-nl-out]",f),btn=$("button",f);
   const ok=()=>{out.innerHTML=`${ico("tick")} Almost there. Check ${esc(em)} to confirm your subscription.`;f.reset()};
   if(cfg.newsletterUrl){btn.disabled=true;btn.innerHTML='<span class="typing" aria-hidden="true"><i></i><i></i><i></i></span> Subscribing';
-    fetch(cfg.newsletterUrl,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"email="+encodeURIComponent(em)}).then(r=>{if(!r.ok)throw 0;ok()}).catch(()=>{out.innerHTML=`${ico("alert")} We couldn't reach the server. Try again, or email hello@ezydrag.in with "Subscribe".`}).finally(()=>{btn.disabled=false;btn.innerHTML=`Subscribe ${ico("arrow")}`})}
-  else{out.innerHTML=`${ico("tick")} Thanks. An email draft is opening so you can confirm. If it doesn't, write to <code>hello@ezydrag.in</code> with "Subscribe".`;location.href="mailto:hello@ezydrag.in?subject="+encodeURIComponent("Subscribe to Field Notes")+"&body="+encodeURIComponent("Please add "+em+" to Field Notes.")}}));
+    fetch(cfg.newsletterUrl,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"email="+encodeURIComponent(em)}).then(r=>{if(!r.ok)throw 0;ok()}).catch(()=>{out.innerHTML=`${ico("alert")} We couldn't reach the server. Try again, or email hello@ezydrag.com with "Subscribe".`}).finally(()=>{btn.disabled=false;btn.innerHTML=`Subscribe ${ico("arrow")}`})}
+  else{out.innerHTML=`${ico("tick")} Thanks. An email draft is opening so you can confirm. If it doesn't, write to <code>hello@ezydrag.com</code> with "Subscribe".`;location.href="mailto:hello@ezydrag.com?subject="+encodeURIComponent("Subscribe to Field Notes")+"&body="+encodeURIComponent("Please add "+em+" to Field Notes.")}}));
 
 /* ---------- agents → people handoff ---------- */
 (function(){const rows=$$("[data-handoff] .ho-row");if(!rows.length)return;if(reduce||!("IntersectionObserver" in window)){rows.forEach(r=>r.classList.add("go"));return}
@@ -416,10 +416,10 @@ addEventListener("hashchange",deep);setTimeout(deep,60);
    v9 · quick-drop lead capture
    - a slim bar after the hero (Book a call, or leave an email)
    - one polite follow-up after ~60s of reading; dismiss = gone for this visit, a small pill stays
-   - no backend? we open a ready-to-send email to hello@ezydrag.in. Never a dark pattern.
+   - no backend? we open a ready-to-send email to hello@ezydrag.com. Never a dark pattern.
    ===================================================================== */
 (function(){const Q=(s,r=document)=>r.querySelector(s),QQ=(s,r=document)=>[...r.querySelectorAll(s)];
-  const cfg=window.EZY_CONFIG||{},to=cfg.email||"hello@ezydrag.in";
+  const cfg=window.EZY_CONFIG||{},to=cfg.email||"hello@ezydrag.com";
   const ss={get:k=>{try{return sessionStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{sessionStorage.setItem(k,v)}catch(e){}}};
   const ls={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
   const done=()=>!!ls.get("ezy-lead");
@@ -528,7 +528,7 @@ const botSVG=id=>{const s=document.querySelector(`svg.b-agent[data-agent="${id||
 
 /* 1 · for the people who open dev tools */
 try{console.log("%c e. %c Ezydrag","background:#2b2e3c;color:#ff9054;font:800 22px system-ui;padding:6px 10px;border-radius:8px","font:700 14px system-ui;color:#2b2e3c");
-console.log("Looking under the hood? Same. Write to hello@ezydrag.in with the subject \"console\" and we'll show you how our agents are wired.\nTip: type  ezydrag  anywhere on the page.")}catch(e){}
+console.log("Looking under the hood? Same. Write to hello@ezydrag.com with the subject \"console\" and we'll show you how our agents are wired.\nTip: type  ezydrag  anywhere on the page.")}catch(e){}
 
 /* 2 · header hairline only once you scroll */
 const hd=document.querySelector(".site-header");if(hd){const f=()=>hd.classList.toggle("scrolled",scrollY>8);addEventListener("scroll",f,{passive:true});f()}
@@ -573,7 +573,7 @@ if(msg&&page!=="404"){let shown=ss.get("peek-"+page);const io=new IntersectionOb
 
 /* 9 · FAQ: some searches get a special answer */
 const fq=document.getElementById("faq-search"),empty=document.querySelector("[data-faq-empty]");
-if(fq&&empty){const J=[[/meaning of life|42/,"42. But that answer isn't approved yet."],[/\b(joke|funny)\b/,"Why did the agent wait? Human approval. Every time."],[/coffee|chai|tea/,"Chai, two sugars. The agents don't drink it, the people do."],[/hire|job|career/,"Not on this page. Write to hello@ezydrag.in and a person will reply."],[/skynet|terminator|take over/,"Not on our watch. Every important step waits for a person."]];
+if(fq&&empty){const J=[[/meaning of life|42/,"42. But that answer isn't approved yet."],[/\b(joke|funny)\b/,"Why did the agent wait? Human approval. Every time."],[/coffee|chai|tea/,"Chai, two sugars. The agents don't drink it, the people do."],[/hire|job|career/,"Not on this page. Write to hello@ezydrag.com and a person will reply."],[/skynet|terminator|take over/,"Not on our watch. Every important step waits for a person."]];
   const h=empty.querySelector("h3"),d=h?h.textContent:"";fq.addEventListener("input",()=>{const v=fq.value.toLowerCase();const j=J.find(([re])=>re.test(v));if(h)h.textContent=j?j[1]:d})}
 })();
 

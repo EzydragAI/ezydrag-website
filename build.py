@@ -14,7 +14,7 @@ import brand as B
 ROOT = Path(__file__).parent
 SITE_URL = "https://www.ezydrag.com"   # production host (apex redirects to www)
 SITE_NAME = "Ezydrag"
-EMAIL = "hello@ezydrag.in"
+EMAIL = "hello@ezydrag.com"
 # Social links. LinkedIn is a placeholder slug until the real company page is confirmed.
 # WhatsApp: set the number in international format, digits only (e.g. "919800000000"); the icon stays hidden while empty.
 SOCIAL = {"linkedin": "https://www.linkedin.com/company/ezydrag", "whatsapp": ""}
@@ -371,7 +371,7 @@ def charge():
  <figure class="scene rv"><div class="sc-ui"><div class="sc-row"><span class="ico">{icon("refresh")}</span><div><b>Delete our lead data</b><small>Marketo · Salesforce · analytics</small></div></div><div class="sc-done">{icon("tick")}Deleted from 3 systems</div></div>
   <figcaption><span class="eyebrow">You own it</span><h3>Your leads stay yours. Ask, and we delete everything.</h3></figcaption></figure>
 </div>
-<div class="humans rv"><span class="faces" aria-hidden="true">{faces}</span><p><b>Real people run it.</b> Write to <code>hello@ezydrag.in</code>. Someone on our team reads every message.</p></div>'''
+<div class="humans rv"><span class="faces" aria-hidden="true">{faces}</span><p><b>Real people run it.</b> Write to <code>hello@ezydrag.com</code>. Someone on our team reads every message.</p></div>'''
 
 def worldmap():
     meta = json.loads((ROOT / "tools/map-meta.json").read_text())
@@ -639,7 +639,7 @@ def main():
     B.export_files(DIST / "assets/brand", ICONS)
     for f in ("brand.svg", "ezydrag-nav.svg"):
         (DIST / "assets" / f).write_text(B.mark(64, title="Ezydrag").replace('class="', 'data-c="'))
-    shutil.copy(SRC / "_redirects", DIST / "_redirects")  # Netlify: /api/ask -> function, ezydrag.in -> ezydrag.com
+    shutil.copy(SRC / "_redirects", DIST / "_redirects")  # Netlify: /api/ask -> function, ezydrag.com -> ezydrag.com
     shutil.copy(SRC / "assets/favicon-original.svg", DIST / "assets/brand.svg")  # tab icon = the existing orange favicon
     shutil.copy(SRC / "assets/favicon-original.svg", DIST / "brand.svg")          # old root path, kept for cached links
     shutil.copy(SRC / "assets/favicon.ico", DIST / "favicon.ico")                  # /favicon.ico for search engines

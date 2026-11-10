@@ -1,4 +1,14 @@
-.env
 node_modules/
-__pycache__/
+build/
+coverage/
 .DS_Store
+*.log
+.env*
+!.env.example
+google.json
+.env.local
+.env.
+node_modules
+.next
+google.json.env
+__pycache__/

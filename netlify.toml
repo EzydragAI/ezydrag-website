@@ -2,6 +2,17 @@
   command = ""
   publish = "dist"
 
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Ask Ezydrag chatbot endpoint (the browser calls /api/ask)
+[[redirects]]
+  from = "/api/ask"
+  to = "/.netlify/functions/ask"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "https://ezydrag.in/*"
   to = "https://ezydrag.com/:splat"

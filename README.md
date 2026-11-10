@@ -10,7 +10,7 @@ Open http://localhost:8000. (Plain static serving still works: `python -m http.s
 - Copy `.env.example` to `.env`, paste your `ANTHROPIC_API_KEY`, restart the server. The key stays on the server, never in the browser.
 - Order of answering: small talk and confident approved answers (0 tokens) → otherwise `/api/ask` retrieves the 4 best passages from `server/kb.json` (built from this site by `kb.py`) and asks a small model (Haiku, 160 max output tokens, ~800 tokens in) → anything not about Ezydrag is refused before any model call.
 - No web search or tools are enabled. Caps: 15 questions per IP per 10 min, 500 model calls per day (`ASK_IP_LIMIT`, `ASK_DAILY_CAP`).
-- After editing site copy, rebuild so `server/kb.json` refreshes (`python build.py`, or `python kb.py` alone). To deploy, host `server/server.mjs` anywhere Node runs (or port `ask()` to a serverless function) and set `askUrl` in `src/assets/config.js`.
+- After editing site copy, rebuild so `server/kb.json` refreshes (`python build.py`, or `python kb.py` alone). On Netlify the same logic runs as a Function (`netlify/functions/ask.mjs`, shared code in `server/ask-core.mjs`, routed from `/api/ask` in `netlify.toml`). Add `ANTHROPIC_API_KEY` under Netlify > Site configuration > Environment variables, then redeploy. Without it the chat quietly falls back to approved answers. Rate limits and the daily cap are per function instance on Netlify, so treat them as soft; set a spend limit in the Anthropic console as the hard ceiling.
 - `build.py` needs Python 3.12+.
 
 ## Edit

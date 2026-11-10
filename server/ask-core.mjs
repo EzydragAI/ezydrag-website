@@ -3,7 +3,6 @@
 // No web search or tools are ever enabled; questions that do not match the knowledge base never reach the model.
 const KEY = process.env.ANTHROPIC_API_KEY || "";
 const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-5-5"; // cheapest tier is plenty for grounded Q&A
-const PORT = +process.env.PORT || 8000;
 const MAX_Q = 300;            // characters accepted per question
 const MAX_OUT = 160;          // output tokens: answers are 2-3 sentences
 const TOP_K = 4;              // chunks sent to the model
@@ -13,7 +12,7 @@ const IP_LIMIT = +process.env.ASK_IP_LIMIT || 15;      // questions per IP per 1
 const DAILY_CAP = +process.env.ASK_DAILY_CAP || 500;   // total LLM calls per day: a hard spend ceiling
 const EMAIL = "hello@ezydrag.in";
 
-import KB from "./kb.json" with { type: "json" };
+import KB from "./kb.mjs";
 
 // ---------- retrieval (BM25-lite, no embeddings, no tokens) ----------
 const STOP = new Set("a an the is are am do does did you your we our us i me my to of for in on and or with what how why who where when can could would should be it this that there their from at by about any have has get tell please also if so which whom whose give show need want like many much really just some more integrate work works use used using make made".split(" "));

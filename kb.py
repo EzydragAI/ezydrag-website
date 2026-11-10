@@ -60,6 +60,8 @@ def main():
         seen.add(key); uniq.append(c)
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(uniq, ensure_ascii=False))
+    # same data as a plain ES module: bundles reliably in Netlify Functions
+    (OUT.parent / "kb.mjs").write_text("export default " + json.dumps(uniq, ensure_ascii=False) + ";\n")
     print(f"kb.json: {len(uniq)} chunks, {sum(len(c['t']) for c in uniq)} chars")
 
 

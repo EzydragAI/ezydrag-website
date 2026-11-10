@@ -181,10 +181,13 @@ const TALK=[
  [/\b(are you (a )?(human|bot|real|ai|robot|gpt|chatgpt|llm)|who are you|what are you)\b/i,()=>"I'm a small bot, and proudly not a big model. I match your question against answers our team has approved, so I can't make things up. When I don't know, a person takes over."],
  [/\b(joke|funny|make me laugh)\b/i,()=>pick(["Why did the AI agent cross the road? It didn't. It was waiting for human approval. (We built it that way.)","An AI agent walks into a bar. It asks for approval before ordering. The bartender says: finally, one with manners.","How many AI agents does it take to change a lightbulb? One to do it, one to check it, and a person to approve the new bulb."])],
  [/\b(weather|recipe|cricket|football|movie|song|stock price|bitcoin|crypto|horoscope|girlfriend|boyfriend|date me|love you)\b/i,()=>pick(["Ha, that's outside my lane. I stick to AI agents, data and how Ezydrag works. Try: “Is our data ready for AI?”","I'd love to help, but I only know what our team approved, and that's all agents and data. Ask me about those?"])],
- [/\b(stupid|useless|dumb|sucks|bad bot)\b/i,()=>"Fair. I'm deliberately small: I only give approved answers. Tell me what you were after and I'll pass it to a person at hello@ezydrag.com."],
  [/\b(help|what can (i|you) ask|what do you know|menu|options)\b/i,()=>"I can answer about 30 questions on what we build, data and metadata, testing and reliability, approvals, pricing and getting started. Pick one below or type your own."],
 ];
-const smallTalk=t=>{const s=t.trim();if(s.split(/\s+/).length>14)return null;for(const[re,f]of TALK)if(re.test(s))return f();return null};
+/* Cuss words and insults are never answered with "send it to a person". If a real question is left once the rude words are removed, we answer that; otherwise we stay light and steer back to what we can help with. */
+const CUSS=/\b(f+u+c+k\w*|fck\w*|sh[i1]+t\w*|bullshit|bitch\w*|asshole|bastard|dickhead|dick|piss\w*|crap\w*|damn\w*|wtf|stfu|idiot\w*|moron\w*|stupid|dumb\w*|loser|suck\w*|useless|madarchod|bhenchod|behenchod|chutiya\w*|gandu|harami|bakchod|bc|mc)\b/gi;
+const CALM=["Ha, let's keep it friendly 🙂 I'm good at questions about Ezydrag: what we build, how it works, security, how we price. What would you like to know?","I hear the frustration. Tell me what you're trying to find out about Ezydrag and I'll do my best to get you a straight answer.","Rough day? I'm happy to help with anything about our AI agents, data, or how we work. Try: “What do you build?”","Fair enough, and thanks for the honesty. Ask me anything about Ezydrag and I'll be as useful as I can."];
+function cuss(text){CUSS.lastIndex=0;if(!CUSS.test(text))return null;CUSS.lastIndex=0;const clean=text.replace(CUSS," ").replace(/\s+/g," ").trim();return tok(clean).length>=2?{clean}:{reply:pick(CALM)}}
+const smallTalk=t=>{const s=t.trim();const cz=cuss(s);if(cz&&cz.reply)return cz.reply;if(s.split(/\s+/).length>14)return null;for(const[re,f]of TALK)if(re.test(s))return f();return null};
 const wait=ms=>new Promise(r=>setTimeout(r,reduce?0:ms));
 async function typeOut(el,text){if(reduce){el.textContent=text;return}const words=text.split(" ");el.textContent="";for(let i=0;i<words.length;i++){el.textContent+=(i?" ":"")+words[i];el.closest(".log").scrollTop=1e9;await wait(Math.min(38,900/words.length+12))}}
 function chips(log,list,ask){if(!list.length)return;const d=document.createElement("div");d.className="bubble-sugg";d.innerHTML=list.map(q=>`<button type="button">${esc(q)}</button>`).join("");log.appendChild(d);
@@ -192,7 +195,7 @@ function chips(log,list,ask){if(!list.length)return;const d=document.createEleme
 async function botReply(log,text,meta){const add=(cls,html)=>{const d=document.createElement("div");d.className="bubble "+cls;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;return d};
   $$(".bubble-sugg",log).forEach(x=>x.remove());const ask=q=>botReply(log,q,meta);
   add("q",esc(text));const t0=performance.now();
-  const talk=smallTalk(text);
+  const talk=smallTalk(text);const cz=cuss(text);if(cz&&cz.clean)text=cz.clean;
   if(talk){const ty=add("a",'<span class="typing" aria-label="Typing"><i></i><i></i><i></i></span>');await wait(520);ty.innerHTML="<p></p>";await typeOut($("p",ty),talk);
     chips(log,["What do you build?","Is our data ready for AI?","How do you test agents?"].filter(q=>q!==text),ask);return{miss:false,talk:true}}
   /* Thinking: the real steps the matcher runs, shown as they happen */
@@ -227,14 +230,17 @@ $$("[data-bot]").forEach(root=>{const log=$(".log",root),form=$("form",root),inp
   const endpoint=(window.EZY_CONFIG||{}).askUrl;let pq="",pa="",busy=false;
   const bubble=(cls,html)=>{const d=document.createElement("div");d.className="bubble "+cls;d.innerHTML=html;log.appendChild(d);log.scrollTop=log.scrollHeight;return d};
   async function ask(q){
-    if(!endpoint||smallTalk(q)||(rankFAQ(q)[0]||{score:0}).score>=.6){const m=await botReply(log,q,false);if(m&&!m.talk&&!m.miss){pq=q;pa=m.item.a}return}
+    const cz=cuss(q);if(cz&&cz.clean)q=cz.clean;
+    const longQ=q.trim().split(/\s+/).length>7; /* longer, more thoughtful questions go to the model unless the FAQ match is near-exact */
+    if(!endpoint||smallTalk(q)||(rankFAQ(q)[0]||{score:0}).score>=(longQ?.85:.6)){const m=await botReply(log,q,false);if(m&&!m.talk&&!m.miss){pq=q;pa=m.item.a}return}
     $$(".bubble-sugg",log).forEach(x=>x.remove());bubble("q",esc(q));
     const ty=bubble("a",'<span class="typing" aria-label="Typing"><i></i><i></i><i></i></span>');
     let r=null;
     try{const res=await fetch(endpoint,{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({q,pq,pa}),signal:AbortSignal.timeout(20000)});if(res.ok||res.status===429)r=await res.json()}catch(e){}
     if(!r||r.error||!r.a){ty.remove();log.lastElementChild.remove();return botReply(log,q,false)} /* no key / offline: approved answers still work */
     ty.innerHTML="<p></p>";await typeOut($("p",ty),r.a);
-    if(r.miss||r.limited||r.capped){ty.classList.add("bad");const mail=`mailto:hello@ezydrag.com?subject=${encodeURIComponent("Question from the website")}&body=${encodeURIComponent(q)}`;
+    if(r.friendly){chips(log,["What do you build?","How does pricing work?","Is our data safe?"],ask)}
+    else if(r.miss||r.limited||r.capped){ty.classList.add("bad");const mail=`mailto:hello@ezydrag.com?subject=${encodeURIComponent("Question from the website")}&body=${encodeURIComponent(q)}`;
       ty.insertAdjacentHTML("beforeend",`<p class="bubble-act"><a href="${mail}">${ico("mail")} Send it to a person</a></p>`);
       chips(log,["What do you build?","How does pricing work?","Is our data safe?"],ask)}
     else{pq=q;pa=r.a;if(r.more&&r.more!=="index.html")ty.insertAdjacentHTML("beforeend",`<p class="bubble-act"><a href="${esc(r.more)}">Read more on this page →</a></p>`);log.scrollTop=log.scrollHeight}
@@ -321,7 +327,7 @@ $$("[data-quote]").forEach(root=>{const steps=$$(".qstep",root),next=$("[data-ne
   back.addEventListener("click",()=>{s--;show()});$("[data-edit]",root).addEventListener("click",()=>{form.hidden=false;res.hidden=true});form.addEventListener("submit",e=>e.preventDefault());show()});
 $$("[data-beta]").forEach(f=>f.addEventListener("submit",e=>{e.preventDefault();if(!validate(f))return;const n=$("#b-name",f).value,m=$("#b-email",f).value,t=$("#b-topic",f).value;
   $("[data-beta-out]",f).innerHTML=`${ico("tick")} Thanks, ${esc(n)}. If no email draft opened, write to <code>hello@ezydrag.com</code>.`;
-  location.href="mailto:hello@ezydrag.com?subject="+encodeURIComponent("Academy beta: "+n)+"&body="+encodeURIComponent(`Name: ${n}\nEmail: ${m}\nTopic: ${t}`)}));
+  window.ezyMail("mailto:hello@ezydrag.com?subject="+encodeURIComponent("Academy beta: "+n)+"&body="+encodeURIComponent(`Name: ${n}\nEmail: ${m}\nTopic: ${t}`))}));
 
 /* ---------- FAQ page ---------- */
 $$("[data-faqpage]").forEach(root=>{const q=$("#faq-search"),count=$("[data-faq-count]"),items=$$("details[data-k]",root),secs=$$(".fq-sec",root),empty=$("[data-faq-empty]",root),links=$$("[data-faq-jump]",root);
@@ -347,7 +353,7 @@ $$("[data-newsletter]").forEach(f=>f.addEventListener("submit",e=>{e.preventDefa
   const ok=()=>{out.innerHTML=`${ico("tick")} Almost there. Check ${esc(em)} to confirm your subscription.`;f.reset()};
   if(cfg.newsletterUrl){btn.disabled=true;btn.innerHTML='<span class="typing" aria-hidden="true"><i></i><i></i><i></i></span> Subscribing';
     fetch(cfg.newsletterUrl,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"email="+encodeURIComponent(em)}).then(r=>{if(!r.ok)throw 0;ok()}).catch(()=>{out.innerHTML=`${ico("alert")} We couldn't reach the server. Try again, or email hello@ezydrag.com with "Subscribe".`}).finally(()=>{btn.disabled=false;btn.innerHTML=`Subscribe ${ico("arrow")}`})}
-  else{out.innerHTML=`${ico("tick")} Thanks. An email draft is opening so you can confirm. If it doesn't, write to <code>hello@ezydrag.com</code> with "Subscribe".`;location.href="mailto:hello@ezydrag.com?subject="+encodeURIComponent("Subscribe to Field Notes")+"&body="+encodeURIComponent("Please add "+em+" to Field Notes.")}}));
+  else{out.innerHTML=`${ico("tick")} Thanks. An email draft is opening so you can confirm. If it doesn't, write to <code>hello@ezydrag.com</code> with "Subscribe".`;window.ezyMail("mailto:hello@ezydrag.com?subject="+encodeURIComponent("Subscribe to Field Notes")+"&body="+encodeURIComponent("Please add "+em+" to Field Notes."))}}));
 
 /* ---------- agents → people handoff ---------- */
 (function(){const rows=$$("[data-handoff] .ho-row");if(!rows.length)return;if(reduce||!("IntersectionObserver" in window)){rows.forEach(r=>r.classList.add("go"));return}
@@ -437,7 +443,7 @@ addEventListener("hashchange",deep);setTimeout(deep,60);
       const qd=Q("#qd");if(qd)qd.classList.add("done");closeNudge(true);QQ(".nudge-pill").forEach(p=>p.hidden=true)};
     if(cfg.leadUrl){fetch(cfg.leadUrl,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)}).then(r=>{if(!r.ok)throw 0;thanks()}).catch(()=>{if(out)out.textContent="That didn't go through. Please email "+to+"."})}
     else{const body=`Hi Ezydrag,%0D%0A%0D%0AI'd like: ${encodeURIComponent(want)}.%0D%0AMy email: ${encodeURIComponent(em)}%0D%0A%0D%0A(Sent from ${encodeURIComponent(data.page)})`;
-      location.href=`mailto:${to}?subject=${encodeURIComponent(f.dataset.lead.startsWith("case-")?"Case study request: "+want:"Sales Nurture Agent: "+want)}&body=${body}`;thanks();if(out)out.textContent="Your email app should open with the message ready. Prefer not? Write to "+to+"."}}));
+      window.ezyMail(`mailto:${to}?subject=${encodeURIComponent(f.dataset.lead.startsWith("case-")?"Case study request: "+want:"Sales Nurture Agent: "+want)}&body=${body}`);thanks();if(out)out.textContent="Your email should open with the message ready (in your mail app, or in Gmail or Outlook on the web). Or write to "+to+"."}}));
 
   /* the bar */
   const nudge=Q("#nudge"),pill=Q("#nudge-pill"),qd=Q("#qd"),hero=Q(".hero-band"),endCta=Q("#start, .cta"),foot=Q(".footer");
@@ -622,4 +628,54 @@ if(fq&&empty){const J=[[/meaning of life|42/,"42. But that answer isn't approved
 (function(){const b=document.querySelector("[data-ist]");if(b){const f=()=>{try{b.textContent=new Intl.DateTimeFormat("en-IN",{timeZone:"Asia/Kolkata",hour:"2-digit",minute:"2-digit",hour12:true}).format(new Date())}catch(e){}};f();setInterval(f,30000)}
  const svg=document.querySelector(".map svg");if(!svg||!svg.pauseAnimations)return;if(matchMedia("(prefers-reduced-motion: reduce)").matches){svg.pauseAnimations();return}
  if("IntersectionObserver" in window)new IntersectionObserver(e=>e[0].isIntersecting?svg.unpauseAnimations():svg.pauseAnimations()).observe(svg)})();
+
+/* ---------- Email links that work with or without a mail app ----------
+   Phones and tablets: the native mail app (plain mailto). Computers: we try the installed mail app first
+   (Apple Mail, Outlook, Thunderbird...). If nothing responds, a small chooser opens Gmail, Outlook or Yahoo
+   on the web in a NEW TAB, or copies the address. The choice is remembered on that device. */
+(function(){
+"use strict";
+const UA=navigator.userAgent||"";
+const MOBILE=/Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(UA)||(navigator.maxTouchPoints>1&&/Mac/i.test(navigator.platform||""));
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+const parse=h=>{const u=h.replace(/^mailto:/i,"");const i=u.indexOf("?");const to=decodeURIComponent(i<0?u:u.slice(0,i));const q=new URLSearchParams(i<0?"":u.slice(i+1));return{to,subject:q.get("subject")||"",body:q.get("body")||""}};
+const WEB={
+  gmail:{name:"Gmail",url:m=>"https://mail.google.com/mail/?view=cm&fs=1&to="+encodeURIComponent(m.to)+"&su="+encodeURIComponent(m.subject)+"&body="+encodeURIComponent(m.body)},
+  outlook:{name:"Outlook",url:m=>"https://outlook.live.com/mail/0/deeplink/compose?to="+encodeURIComponent(m.to)+"&subject="+encodeURIComponent(m.subject)+"&body="+encodeURIComponent(m.body)},
+  yahoo:{name:"Yahoo Mail",url:m=>"https://compose.mail.yahoo.com/?to="+encodeURIComponent(m.to)+"&subject="+encodeURIComponent(m.subject)+"&body="+encodeURIComponent(m.body)}
+};
+const openWeb=(k,m)=>{const w=window.open(WEB[k].url(m),"_blank","noopener");if(!w)location.href=WEB[k].url(m)};
+let css=false;
+function style(){if(css)return;css=true;const s=document.createElement("style");s.textContent=
+".ezm-bg{position:fixed;inset:0;z-index:2147483000;background:rgba(43,46,60,.55);display:grid;place-items:center;padding:16px}"+
+".ezm{background:#fff;color:#2b2e3c;border:2px solid #2b2e3c;border-radius:18px;box-shadow:6px 6px 0 #ff9054;max-width:420px;width:100%;padding:22px;font:500 15px/1.45 Figtree,system-ui,sans-serif}"+
+".ezm h2{margin:0 0 4px;font:800 20px/1.2 'Bricolage Grotesque',Figtree,system-ui,sans-serif}.ezm p{margin:0 0 14px;color:#5b5f71}"+
+".ezm .row{display:grid;gap:8px}.ezm a.b,.ezm button.b{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border:2px solid #2b2e3c;border-radius:12px;background:#fff;color:#2b2e3c;font:700 15px Figtree,system-ui,sans-serif;text-decoration:none;cursor:pointer}"+
+".ezm a.b:hover,.ezm button.b:hover,.ezm a.b:focus-visible,.ezm button.b:focus-visible{background:#fff1e8;outline:3px solid #ff9054;outline-offset:1px}"+
+".ezm .lab{display:flex;gap:8px;align-items:center;margin:14px 0 0;color:#5b5f71;font-size:13px}.ezm .x{margin-top:12px;background:none;border:0;color:#5b5f71;font:600 14px Figtree,system-ui,sans-serif;cursor:pointer;text-decoration:underline;padding:4px 0}";
+document.head.appendChild(s)}
+function chooser(m){
+  style();const bg=document.createElement("div");bg.className="ezm-bg";
+  bg.innerHTML='<div class="ezm" role="dialog" aria-modal="true" aria-labelledby="ezm-h"><h2 id="ezm-h">Send an email</h2><p>No mail app opened. Pick where to write to <b></b>. It opens in a new tab.</p><div class="row"></div><label class="lab"><input type="checkbox" checked> Remember my choice on this device</label><button class="x" type="button" data-close>Close</button></div>';
+  bg.querySelector("b").textContent=m.to;const row=bg.querySelector(".row"),rem=bg.querySelector("input"),prev=document.activeElement;
+  const done=()=>{bg.remove();document.removeEventListener("keydown",key,true);prev&&prev.focus&&prev.focus()};
+  const key=e=>{if(e.key==="Escape")done()};document.addEventListener("keydown",key,true);
+  Object.keys(WEB).forEach(k=>{const a=document.createElement("a");a.className="b";a.href=WEB[k].url(m);a.target="_blank";a.rel="noopener";a.innerHTML="<span>Open "+WEB[k].name+"</span><span aria-hidden='true'>↗</span>";
+    a.addEventListener("click",()=>{if(rem.checked)store.set("ezy-mail",k);setTimeout(done,50)});row.appendChild(a)});
+  const c=document.createElement("button");c.type="button";c.className="b";c.innerHTML="<span>Copy the address</span><span aria-hidden='true'>⧉</span>";
+  c.addEventListener("click",()=>{const ok=()=>{c.firstChild.textContent="Copied: "+m.to};if(navigator.clipboard)navigator.clipboard.writeText(m.to).then(ok,()=>{});else ok()});row.appendChild(c);
+  bg.addEventListener("click",e=>{if(e.target===bg||e.target.hasAttribute("data-close"))done()});document.body.appendChild(bg);row.firstChild.focus()}
+/* Try the installed mail app. If the page never loses focus within ~1.4s, nothing handled the link. */
+function tryNative(href,m){
+  let handled=false;const mark=()=>{handled=true};
+  addEventListener("blur",mark,{once:true});document.addEventListener("visibilitychange",mark,{once:true});addEventListener("pagehide",mark,{once:true});
+  const a=document.createElement("a");a.href=href;a.setAttribute("data-ezy-native","");a.style.display="none";document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>{removeEventListener("blur",mark);document.removeEventListener("visibilitychange",mark);removeEventListener("pagehide",mark);if(!handled)chooser(m)},1400)}
+window.ezyMail=function(href){
+  const m=parse(href);
+  if(MOBILE){location.href=href;return}                              /* phones and tablets: native app */
+  const pref=store.get("ezy-mail");if(pref&&WEB[pref]){openWeb(pref,m);return}   /* chose a web mail before */
+  tryNative(href,m)};
+document.addEventListener("click",e=>{const a=e.target.closest&&e.target.closest('a[href^="mailto:" i]');if(!a||a.hasAttribute("data-ezy-native")||MOBILE||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey)return;e.preventDefault();window.ezyMail(a.getAttribute("href"))},true);
+})();
 

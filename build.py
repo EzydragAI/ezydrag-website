@@ -639,6 +639,7 @@ def main():
     B.export_files(DIST / "assets/brand", ICONS)
     for f in ("brand.svg", "ezydrag-nav.svg"):
         (DIST / "assets" / f).write_text(B.mark(64, title="Ezydrag").replace('class="', 'data-c="'))
+    shutil.copy(SRC / "_redirects", DIST / "_redirects")  # Netlify: /api/ask -> function, ezydrag.in -> ezydrag.com
     shutil.copy(SRC / "assets/favicon-original.svg", DIST / "assets/brand.svg")  # tab icon = the existing orange favicon
     shutil.copy(SRC / "assets/favicon-original.svg", DIST / "brand.svg")          # old root path, kept for cached links
     shutil.copy(SRC / "assets/favicon.ico", DIST / "favicon.ico")                  # /favicon.ico for search engines

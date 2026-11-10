@@ -7,6 +7,17 @@
   node_bundler = "esbuild"
 
 # Ask Ezydrag chatbot endpoint (the browser calls /api/ask)
+# Scripts and styles: always revalidate (cheap 304), so a new deploy reaches visitors at once instead of after 4 hours
+[[headers]]
+  for = "/assets/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 [[redirects]]
   from = "/api/ask"
   to = "/.netlify/functions/ask"

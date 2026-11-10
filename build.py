@@ -509,12 +509,12 @@ HEAD = '''<meta charset="UTF-8"><meta name="viewport" content="width=device-widt
 <meta name="google-site-verification" content="O0uhM1BARX59g2vRaOwGsyETeRt8XJ2OScSxNxuTo4w"><meta name="theme-color" content="#ffffff"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="assets/brand.svg" type="image/svg+xml"><link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="assets/style.css"><script defer src="assets/config.js"></script>{ld}'''
+<link rel="stylesheet" href="assets/style.css?v=20261111b"><script defer src="assets/config.js?v=20261111b"></script>{ld}'''
 
 def faq_data():
     import subprocess, json as _j
     js = "global.window={};require(process.argv[1]);process.stdout.write(JSON.stringify(window.EZY_FAQ))"
-    return _j.loads(subprocess.run(["node", "-e", js, str((SRC / "assets/faq-data.js").resolve())], capture_output=True, text=True, check=True).stdout)
+    return _j.loads(subprocess.run(["node", "-e", js, str((SRC / "assets/faq-data.js?v=20261111b").resolve())], capture_output=True, text=True, check=True).stdout)
 
 def faq_full():
     """Static, crawlable FAQ: category index (3 of 12 cols) + grouped answers (9 of 12)."""
@@ -533,7 +533,7 @@ def faq_full():
             f'<div class="state" data-faq-empty hidden><h3>No answers match that.</h3><p class="muted">Try another word, or ask the bot below.</p></div></div></div>')
 
 def faq_items():
-    txt = (SRC / "assets/faq-data.js").read_text()
+    txt = (SRC / "assets/faq-data.js?v=20261111b").read_text()
     un = lambda x: x.replace('\\"', '"')
     return [dict(q=un(q), a=un(a)) for q, a in re.findall(r'q:"((?:[^"\\]|\\.)*)",k:"[^"]*",a:"((?:[^"\\]|\\.)*)"', txt)]
 
@@ -628,7 +628,7 @@ def render(path):
     nxt = "" if "{{NONEXT}}" in raw or page in ("404.html",) else next_links(page)
     body = body.replace("{{NONEXT}}", "")
     loader = B.loader(56, label='Loading', icons=ICONS)
-    inner = f'{SPRITE}{CURTAIN}{header(meta.get("nav",""), page)}<main id="main" tabindex="-1">{body}</main>{nxt}{FOOTER}{'' if page in ('demo.html','404.html') else QUICKDROP}{dlg}<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><template id="tpl-loader">{loader}</template><script defer src="assets/faq-data.js"></script><script defer src="assets/scenarios.js"></script><script defer src="assets/app.js"></script><script defer src="assets/motion.js"></script><script defer src="assets/sim.js"></script><script defer src="assets/story.js"></script>'
+    inner = f'{SPRITE}{CURTAIN}{header(meta.get("nav",""), page)}<main id="main" tabindex="-1">{body}</main>{nxt}{FOOTER}{'' if page in ('demo.html','404.html') else QUICKDROP}{dlg}<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script><script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script><template id="tpl-loader">{loader}</template><script defer src="assets/faq-data.js?v=20261111b"></script><script defer src="assets/scenarios.js?v=20261111b"></script><script defer src="assets/app.js?v=20261111b"></script><script defer src="assets/motion.js?v=20261111b"></script><script defer src="assets/sim.js?v=20261111b"></script><script defer src="assets/story.js?v=20261111b"></script>'
     return f'<!doctype html><html lang="en"><head>{head}</head><body data-page="{page[:-5]}">{inner}</body></html>', f'{head}{inner}'
 
 def main():

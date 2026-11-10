@@ -92,12 +92,12 @@ export async function ask(body, ip) {
     });
   } catch (e) { return { status: 200, json: { error: "upstream", detail: "network:" + String(e && e.name) } }; }
   if (!res.ok) {
-    let type = ""; const body = await res.text();
-    try { type = JSON.parse(body).error?.type || ""; } catch {}
+    let type = "", msg = ""; const body = await res.text();
+    try { const e = JSON.parse(body).error; type = e?.type || ""; msg = String(e?.message || "").slice(0, 200); } catch {}
     console.error("Anthropic", res.status, body.slice(0, 200));
     // status 200 so proxies/CDNs don't mask the body; the browser falls back to approved answers on any "error"
     const shape = res.status === 401 ? { len: KEY.length, prefixOk: KEY.startsWith("sk-ant-"), hasSpaceOrQuote: /[\s"'`]/.test(KEY) } : undefined; // no secret revealed
-    return { status: 200, json: { error: "upstream", detail: res.status + " " + type, key: shape } };
+    return { status: 200, json: { error: "upstream", detail: res.status + " " + type, msg: res.status === 400 || res.status === 404 ? msg : undefined, key: shape } };
   }
   const j = await res.json();
   let a = (j.content || []).filter((b) => b.type === "text").map((b) => b.text).join("").trim();

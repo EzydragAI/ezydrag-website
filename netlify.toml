@@ -14,13 +14,13 @@
   force = true
 
 [[redirects]]
-  from = "https://ezydrag.com/*"
+  from = "https://ezydrag.in/*"
   to = "https://ezydrag.com/:splat"
   status = 301
   force = true
 
 [[redirects]]
-  from = "https://www.ezydrag.com/*"
+  from = "https://www.ezydrag.in/*"
   to = "https://ezydrag.com/:splat"
   status = 301
   force = true
